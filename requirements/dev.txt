@@ -1,0 +1,5 @@
+-r base.txt
+Sphinx
+sphinx_rtd_theme
+flake8
+black
