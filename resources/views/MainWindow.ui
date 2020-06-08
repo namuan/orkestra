@@ -48,13 +48,13 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="cmb_folders"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="txt_search_steps"/>
          </item>
          <item>
-          <widget class="QListView" name="listView"/>
+          <widget class="QListView" name="lst_steps"/>
          </item>
         </layout>
        </widget>

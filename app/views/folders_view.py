@@ -7,5 +7,6 @@ class FoldersView:
         self.parent = parent
         self.controller = FoldersController(self, app)
 
-    def on_update_folders(self):
-        print("Do something with self.parent.combobox")
+    def on_update_folders(self, folders):
+        for folder in folders:
+            self.parent.cmb_folders.addItem(folder.name)

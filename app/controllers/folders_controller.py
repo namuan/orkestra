@@ -10,4 +10,5 @@ class FoldersController:
         self.app.data.events.app_started.connect(self.on_app_started)
 
     def on_app_started(self):
-        self.view.on_update_folders()
+        folders = self.app.folder_store.folders.folders
+        self.view.on_update_folders(folders)
