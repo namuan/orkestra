@@ -12,7 +12,7 @@ from app.controllers import (
     ScratchPadController,
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
-from app.settings.app_settings import app
+from app.settings import app
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):

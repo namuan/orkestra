@@ -1,6 +1,8 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QEvent
 
+from app.settings.app_world import AppWorld
+
 
 class ScratchPadEvents(QObject):
     def __init__(self, parent, app):
@@ -16,11 +18,11 @@ class ScratchPadEvents(QObject):
 
     def save_scratch_pad(self):
         scratch = self.parent.txt_scratch_pad.toPlainText()
-        self.app.data.update_scratch_note(scratch)
+        self.app.app_state_store.update_scratch_note(scratch)
 
 
 class ScratchPadController:
-    def __init__(self, parent, app):
+    def __init__(self, parent, app: AppWorld):
         self.parent = parent
         self.app = app
         self.events = ScratchPadEvents(self.parent, self.app)
@@ -29,5 +31,5 @@ class ScratchPadController:
         self.parent.txt_scratch_pad.installEventFilter(self.events)
 
     def init(self):
-        scratch_note = self.app.data.get_scratch_note()
+        scratch_note = self.app.app_state_store.get_scratch_note()
         self.parent.txt_scratch_pad.setPlainText(scratch_note)

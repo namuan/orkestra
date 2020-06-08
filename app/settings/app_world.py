@@ -7,19 +7,22 @@ from PyQt5.QtCore import QSettings, QStandardPaths
 from PyQt5.QtWidgets import qApp
 
 from app.core.str_utils import str_to_bool
+from app.data.app_state import AppStateStore
 from app.data.data_store import DataStore
 from app.settings.app_config import AppConfig
 
 
-class AppSettings:
+class AppWorld:
+    settings: QSettings
+    app_dir: Union[Path, Any]
+    app_name: str
+    data: DataStore
+    app_state_store = AppStateStore
+
     def __init__(self):
-        self.settings: QSettings = None
-        self.app_name: str = None
-        self.app_dir: Union[Path, Any] = None
         self.docs_location: Path = Path(
             QStandardPaths.writableLocation(QStandardPaths.DocumentsLocation)
         )
-        self.data: DataStore = None
 
     def init(self):
         self.app_name = qApp.applicationName().lower()
@@ -33,6 +36,7 @@ class AppSettings:
         )
         self.settings.sync()
         self.data = DataStore(self.app_dir)
+        self.app_state_store = AppStateStore(self.data)
 
     def init_logger(self):
         log_file = f"{self.app_name}.log"
@@ -75,4 +79,4 @@ class AppSettings:
         return self.settings.value("windowState", None)
 
 
-app = AppSettings()
+app = AppWorld()
