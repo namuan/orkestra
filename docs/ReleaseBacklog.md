@@ -4,18 +4,27 @@ Here is a rough implementation plan for Orkestra with backlog
 
 **Milestones**
 
-- Load AppState on Application Start-Up
-- Load Folders on Application Start-Up
-- Create Default Folder if it doesn't exist
-- Add toolbar button to add a new Step
-- Implement Dialog Box to select Step Type
-- Add toolbar button to view environments
-- Implement Modal Dialog to work with environment
-- Add support for adding/removing/duplicating environment from the Dialog
-- Persist environments when closing the Dialog
-- Add a toolbar combobox widget to show currently selected environment
-- Save current environment in AppState
+- 0.1.0 - Load AppState on Application Start-Up
+- 0.2.0 - Load Folders on Application Start-Up
+- 0.2.0 - Create Default Folder if it doesn't exist
+- 0.3.0 - Add toolbar button to add a new Step
+- 0.3.0 - Implement Dialog Box to select Step Type
+- 0.4.0 - Add toolbar button to view environments
+- 0.4.0 - Implement Modal Dialog to work with environment
+- 0.4.0 - Add support for adding/removing/duplicating environment from the Dialog
+- 0.4.0 - Persist environments when closing the Dialog
+- 0.4.0 - Add a toolbar combobox widget to show currently selected environment
+- 0.4.0 - Save current environment in AppState
+- 0.5.0 - Create Widget for HTTP Client
+- 0.6.0 - Create Widget for SQL Client
+- 0.7.0 - Implement functionality to show client based on the Step Type
+- 0.7.0 - Bonus: Implement automated swapping between Step Type to detect any memory leaks
 
+**Release 0.8.0**
+- Implement functionality behind HTTP Client
+
+**Release 0.9.0** 
+- Implement functionality behind SQL Client
 
 ## Release 2.0.0
 
