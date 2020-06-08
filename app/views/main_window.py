@@ -1,18 +1,19 @@
 import logging
-import sys
 import traceback
+
+import sys
 from PyQt5.QtGui import QCloseEvent
 from PyQt5.QtWidgets import QMainWindow, qApp
 
 from app.controllers import (
     MainWindowController,
     ToolbarController,
-    ConfigController,
     ShortcutController,
     ScratchPadController,
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
-from app.settings import app
+from app.settings.app_world import AppWorld
+from app.views.configuration_dialog import ConfigurationDialog
 from app.views.folders_view import FoldersView
 
 
@@ -24,19 +25,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setUnifiedTitleAndToolBarOnMac(True)
 
+        self.world = AppWorld()
+
         # Initialise controllers
-        self.main_controller = MainWindowController(self, app)
-        self.toolbar_controller = ToolbarController(self, app)
-        self.config_controller = ConfigController(self, app)
-        self.shortcut_controller = ShortcutController(self, app)
-        self.scratch_pad_controller = ScratchPadController(self, app)
+        self.main_controller = MainWindowController(self)
+        self.toolbar_controller = ToolbarController(self)
+        self.shortcut_controller = ShortcutController(self)
+        self.scratch_pad_controller = ScratchPadController(self)
+
+        # Initialise Sub-Views
+        self.config_view = ConfigurationDialog(self)
+        self.folders_view = FoldersView(self)
 
         # Initialise components
         self.toolbar_controller.init_items()
         self.shortcut_controller.init_items()
-
-        # Initialise Sub-Views
-        self.folders_view = FoldersView(self)
 
         # Initialise Sub-Systems
         sys.excepthook = MainWindow.log_uncaught_exceptions

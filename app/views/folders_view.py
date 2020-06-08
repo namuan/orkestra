@@ -1,11 +1,10 @@
 from app.controllers.folders_controller import FoldersController
-from app.settings import app
 
 
 class FoldersView:
     def __init__(self, parent):
         self.parent = parent
-        self.controller = FoldersController(self, app)
+        self.controller = FoldersController(self, self.parent.world)
 
     def on_update_folders(self, folders):
         for folder in folders:

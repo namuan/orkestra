@@ -1,0 +1,2 @@
+class FakeAppWorld:
+    pass

@@ -84,6 +84,3 @@ class AppWorld:
 
     def started(self):
         self.data.events.app_started.emit()
-
-
-app = AppWorld()

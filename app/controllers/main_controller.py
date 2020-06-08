@@ -4,24 +4,25 @@ from app.settings.app_world import AppWorld
 
 
 class MainWindowController:
-    def __init__(self, parent_window, app):
-        self.parent = parent_window
+    def __init__(self, main_window):
+        self.main_window = main_window
         self.initial_load = True
-        self.app: AppWorld = app
+        self.world: AppWorld = self.main_window.world
         self.init_app()
 
     def init_app(self):
-        self.app.init()
-        self.app.init_logger()
-        if self.app.geometry():
-            self.parent.restoreGeometry(self.app.geometry())
-        if self.app.window_state():
-            self.parent.restoreState(self.app.window_state())
+        self.world.init()
+        self.world.init_logger()
+        if self.world.geometry():
+            self.main_window.restoreGeometry(self.world.geometry())
+        if self.world.window_state():
+            self.main_window.restoreState(self.world.window_state())
 
     def save_settings(self):
         logging.info("Saving settings for Main Window")
-        self.app.save_window_state(
-            geometry=self.parent.saveGeometry(), window_state=self.parent.saveState()
+        self.world.save_window_state(
+            geometry=self.main_window.saveGeometry(),
+            window_state=self.main_window.saveState(),
         )
 
     def shutdown(self):
@@ -35,4 +36,4 @@ class MainWindowController:
         self.on_first_load()
 
     def on_first_load(self):
-        self.app.started()
+        self.world.started()
