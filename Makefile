@@ -51,6 +51,9 @@ res: ## Generates and compresses resource file
 run: ## Runs the application
 	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/python3 app/__main__.py
 
+test: ## Run all unit tests
+	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest tests
+
 runapp: ## Runs the packaged application
 	./dist/Orkestra.app/Contents/MacOS/app
 
