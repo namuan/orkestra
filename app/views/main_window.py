@@ -13,6 +13,7 @@ from app.controllers import (
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.settings import app
+from app.views.folders_view import FoldersView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -33,6 +34,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Initialise components
         self.toolbar_controller.init_items()
         self.shortcut_controller.init_items()
+
+        # Initialise Sub-Views
+        self.folders_view = FoldersView(self)
 
         # Initialise Sub-Systems
         sys.excepthook = MainWindow.log_uncaught_exceptions
