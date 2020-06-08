@@ -1,24 +1,14 @@
 # Test that the Fake FoldersView is called to update folder on App started event
-from app.controllers.folders_controller import FoldersController
-from app.settings.app_world import AppWorld
+from app.views.main_window import MainWindow
 
 
-class FakeFoldersView(object):
-    pass
-
-
-class FakeAppWorld(object):
-    pass
-
-
-def test_show_all_folders():
+def test_show_all_folders(qtbot):
     # given
-    fake_view = FakeFoldersView()
-    world = AppWorld
-    # FoldersController(fake_view, world)
+    window = MainWindow()
 
     # when
-    # world.data.events.app_started.emit()
+    window.show()
+    qtbot.addWidget(window)
 
     # then
-    assert 1 == 1
+    assert window.cmb_folders.count() == 1
