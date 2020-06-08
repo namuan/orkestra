@@ -24,10 +24,10 @@ clean: clean-pyc ## Clean package
 	rm -rf build dist
 
 black: ## Runs black for code formatting
-	black app --exclude generated
+	./venv/bin/black app --exclude generated
 
 lint: black ## Runs Flake8 for linting
-	flake8 app
+	./venv/bin/flake8 app
 
 setup: clean ## Re-initiates virtualenv
 	rm -rf venv
