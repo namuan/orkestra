@@ -27,9 +27,12 @@ class ScratchPadController:
         self.app = app
         self.events = ScratchPadEvents(self.parent, self.app)
 
+        # ui events
+        self.app.data.events.app_started.connect(self.on_app_started)
+
         # installing event filter
         self.parent.txt_scratch_pad.installEventFilter(self.events)
 
-    def init(self):
+    def on_app_started(self):
         scratch_note = self.app.app_state_store.get_scratch_note()
         self.parent.txt_scratch_pad.setPlainText(scratch_note)

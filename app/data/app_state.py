@@ -1,43 +1,23 @@
-import json
 import logging
 
 import attr
-import cattr
 
 from app.core.str_utils import plain_to_b64_str, b64_to_plain_str
-from app.signals import AppEvents
+from app.data import BaseEntity
+from app.data.data_store import DataStore
 
 APP_STATE_RECORD_TYPE = "app_state"
 
 
 @attr.s(auto_attribs=True)
-class AppState:
+class AppStateEntity(BaseEntity):
     record_type: str = APP_STATE_RECORD_TYPE
     selected_tool: str = ""
     scratch_note: str = ""
 
-    @classmethod
-    def from_json_str(cls, json_str):
-        json_obj = json.loads(json_str)
-        return cls.from_json(json_obj)
-
-    @classmethod
-    def from_json(cls, json_obj):
-        if not json_obj:
-            return cls()
-        return cattr.structure(json_obj, cls)
-
-    def to_json(self):
-        return cattr.unstructure(self)
-
-    def to_json_str(self):
-        return json.dumps(self.to_json())
-
 
 class AppStateStore:
-    events: AppEvents()
-
-    def __init__(self, data_store):
+    def __init__(self, data_store: DataStore):
         self.ds = data_store
         self._app_state = self.get_app_state()
 
@@ -56,9 +36,9 @@ class AppStateStore:
         table = self.ds.table_for(APP_STATE_RECORD_TYPE)
         app_state_db = table.find_one(name=APP_STATE_RECORD_TYPE)
         if not app_state_db:
-            return AppState()
+            return AppStateEntity()
 
-        return AppState.from_json_str(app_state_db["object"])
+        return AppStateEntity.from_json_str(app_state_db["object"])
 
     def update_selected_tool(self, selected_tool):
         logging.debug("Updating selected tool to {}".format(selected_tool))
@@ -67,7 +47,7 @@ class AppStateStore:
 
         self.app_state.selected_tool = selected_tool
         self.update_app_state_in_db()
-        self.events.tool_switched.emit(selected_tool)
+        self.ds.events.tool_switched.emit(selected_tool)
 
     def get_selected_tool(self):
         return self.app_state.selected_tool

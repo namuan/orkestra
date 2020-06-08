@@ -47,6 +47,7 @@ class AppWorld:
             logging.StreamHandler(),
         ]
 
+        # noinspection PyArgumentList
         logging.basicConfig(
             handlers=handlers,
             format="%(asctime)s - %(filename)s:%(lineno)d - %(message)s",
@@ -77,6 +78,9 @@ class AppWorld:
 
     def window_state(self):
         return self.settings.value("windowState", None)
+
+    def started(self):
+        self.data.events.app_started.emit()
 
 
 app = AppWorld()

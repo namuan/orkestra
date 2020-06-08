@@ -7,19 +7,24 @@ from PyQt5.QtWidgets import (
     QAction,
 )
 
+from app.settings.app_world import AppWorld
+
 
 class ToolbarController:
     def __init__(self, parent_window, app):
         self.parent = parent_window
         self.toolbar = QToolBar()
-        self.app = app
+        self.app: AppWorld = app
         self.populating_tools = True
 
-    def init(self):
+        # ui events
+        self.app.data.events.app_started.connect(self.on_app_started)
+
+    def on_app_started(self):
         pass
 
     def init_items(self):
-        self.toolbar.setObjectName("maintoolbar")
+        self.toolbar.setObjectName("main_toolbar")
         self.parent.addToolBar(Qt.TopToolBarArea, self.toolbar)
         self.toolbar.setMovable(False)
 

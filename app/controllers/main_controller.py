@@ -1,11 +1,13 @@
 import logging
 
+from app.settings.app_world import AppWorld
+
 
 class MainWindowController:
     def __init__(self, parent_window, app):
         self.parent = parent_window
         self.initial_load = True
-        self.app = app
+        self.app: AppWorld = app
         self.init_app()
 
     def init_app(self):
@@ -33,5 +35,4 @@ class MainWindowController:
         self.on_first_load()
 
     def on_first_load(self):
-        self.parent.toolbar_controller.init()
-        self.parent.scratch_pad_controller.init()
+        self.app.started()
