@@ -9,6 +9,7 @@ from app.data import BaseEntity
 @attr.s(auto_attribs=True)
 class Folder:
     name: str
+    selected: bool = False
     id: str = uuid4()
 
 

@@ -8,4 +8,5 @@ class FoldersController:
 
     def on_app_started(self):
         folders = self.world.folder_store.folders.folders
-        self.main_window.on_update_folders(folders)
+        selected_folder = next((folder for folder in folders if folder.selected), None)
+        self.main_window.on_update_folders(folders, selected_folder)
