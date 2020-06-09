@@ -3,3 +3,4 @@ from .main_controller import MainWindowController
 from .toolbar_controller import ToolbarController
 from .shortcut_controller import ShortcutController
 from .scratch_pad_controller import ScratchPadController
+from .steps_controller import StepsController

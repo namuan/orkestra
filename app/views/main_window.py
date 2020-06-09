@@ -10,6 +10,7 @@ from app.controllers import (
     ToolbarController,
     ShortcutController,
     ScratchPadController,
+    StepsController
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.settings.app_world import AppWorld
@@ -32,6 +33,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.toolbar_controller = ToolbarController(self)
         self.shortcut_controller = ShortcutController(self)
         self.scratch_pad_controller = ScratchPadController(self)
+        self.steps_controller = StepsController(self)
 
         # Initialise Sub-Views
         self.config_view = ConfigurationDialog(self)

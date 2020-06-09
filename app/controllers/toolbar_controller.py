@@ -1,12 +1,15 @@
+from functools import partial
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (
     QToolBar,
     QWidget,
     QSizePolicy,
-    QAction,
+    QAction, QMenu,
 )
 
+from app.core.constants import AVAILABLE_STEPS
 from app.settings.app_world import AppWorld
 
 
@@ -27,6 +30,20 @@ class ToolbarController:
         self.toolbar.setObjectName("main_toolbar")
         self.main_window.addToolBar(Qt.TopToolBarArea, self.toolbar)
         self.toolbar.setMovable(False)
+
+        steps_menu = QMenu()
+        for step in AVAILABLE_STEPS:
+            s_action = QAction(step, self.main_window)
+            s_action.triggered.connect(
+                partial(self.main_window.steps_controller.add_step, step)
+            )
+            steps_menu.addAction(s_action)
+
+        toolbar_new_step_action = QAction(
+            QIcon(":/images/plus-48.png"), "New Step", self.main_window
+        )
+        toolbar_new_step_action.setMenu(steps_menu)
+        self.toolbar.addAction(toolbar_new_step_action)
 
         self.toolbar.addSeparator()
 
