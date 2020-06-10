@@ -62,6 +62,6 @@ class ToolbarController:
         self.toolbar.addAction(toolbar_configure_action)
 
     def trigger_add_step_command(self, step_name):
-        add_step_command = AddStepCommand(name=step_name, step_type=StepType[step_name])
+        add_step_command = AddStepCommand(step_type=StepType[step_name])
         logging.info("Adding new step: {}".format(add_step_command))
         self.world.step_store.add_step(add_step_command)

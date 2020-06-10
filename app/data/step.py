@@ -8,11 +8,24 @@ from app.core.uuid_utils import gen_uuid
 from app.data import BaseEntity, BaseStore
 
 STEP_RECORD_TYPE = "steps"
+DEFAULT_TITLE = "Change this"
+
+
+def default_title(step_type: StepType):
+    if step_type == StepType.HTTP:
+        return "Get Request"
+    elif step_type == StepType.SQL:
+        return "Select All"
+
+
+def default_description():
+    return "Change description"
 
 
 @attr.s(auto_attribs=True)
 class StepEntity(BaseEntity):
-    name: str
+    title: str
+    description: str
     id: str
     step_type: StepType
     record_type: str = STEP_RECORD_TYPE
@@ -24,7 +37,8 @@ class StepStore(BaseStore):
 
     def add_step(self, add_step_command: AddStepCommand):
         step_entity = StepEntity(
-            name=add_step_command.name,
+            title=default_title(add_step_command.step_type),
+            description=default_description(),
             id=gen_uuid(),
             step_type=add_step_command.step_type,
         )

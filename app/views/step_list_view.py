@@ -17,5 +17,5 @@ class StepListView:
 
     def add_step_widget(self, step: StepEntity):
         print("Adding a new widget for {}".format(step))
-        step_item = QStandardItem(step.name)
+        step_item = QStandardItem("({}) {}".format(step.step_type.value, step.title))
         self.model.appendRow(step_item)
