@@ -24,7 +24,7 @@ class StepStore(BaseStore):
         step_entity = StepEntity(
             name=add_step_command.name,
             id=gen_uuid(),
-            step_type=add_step_command.step_type
+            step_type=add_step_command.step_type,
         )
         table = self.ds.table_for(step_entity.record_type)
         table.upsert(

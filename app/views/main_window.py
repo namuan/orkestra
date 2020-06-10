@@ -10,12 +10,10 @@ from app.controllers import (
     ToolbarController,
     ShortcutController,
     ScratchPadController,
-    StepsController
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.settings.app_world import AppWorld
-from app.views.configuration_dialog import ConfigurationDialog
-from app.views.folders_view import FoldersView
+from app.views import ConfigurationDialog, FoldersView, StepListView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -33,11 +31,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.toolbar_controller = ToolbarController(self)
         self.shortcut_controller = ShortcutController(self)
         self.scratch_pad_controller = ScratchPadController(self)
-        self.steps_controller = StepsController(self)
 
         # Initialise Sub-Views
         self.config_view = ConfigurationDialog(self)
         self.folders_view = FoldersView(self)
+        self.step_list_view = StepListView(self)
 
         # Initialise components
         self.toolbar_controller.init_items()

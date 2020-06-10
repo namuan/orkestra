@@ -17,7 +17,9 @@ class Folder:
 class FoldersEntity(BaseEntity):
     folders: List[Folder] = [Folder(name="Default")]
 
+
 # @todo: Add Record Type
+
 
 class FolderStore(BaseStore):
     def __init__(self, data_store):

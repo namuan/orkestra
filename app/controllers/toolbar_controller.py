@@ -1,3 +1,4 @@
+import logging
 from functools import partial
 
 from PyQt5.QtCore import Qt
@@ -6,10 +7,13 @@ from PyQt5.QtWidgets import (
     QToolBar,
     QWidget,
     QSizePolicy,
-    QAction, QMenu,
+    QAction,
+    QMenu,
 )
 
+from app.commands.add_step_command import AddStepCommand
 from app.core.constants import AVAILABLE_STEPS
+from app.core.step_types import StepType
 from app.settings.app_world import AppWorld
 
 
@@ -34,9 +38,7 @@ class ToolbarController:
         steps_menu = QMenu()
         for step in AVAILABLE_STEPS:
             s_action = QAction(step, self.main_window)
-            s_action.triggered.connect(
-                partial(self.main_window.steps_controller.trigger_add_step_command, step)
-            )
+            s_action.triggered.connect(partial(self.trigger_add_step_command, step))
             steps_menu.addAction(s_action)
 
         toolbar_new_step_action = QAction(
@@ -58,3 +60,8 @@ class ToolbarController:
             self.main_window.config_view.show_dialog
         )
         self.toolbar.addAction(toolbar_configure_action)
+
+    def trigger_add_step_command(self, step_name):
+        add_step_command = AddStepCommand(name=step_name, step_type=StepType[step_name])
+        logging.info("Adding new step: {}".format(add_step_command))
+        self.world.step_store.add_step(add_step_command)
