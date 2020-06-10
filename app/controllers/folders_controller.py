@@ -3,7 +3,7 @@ class FoldersController:
         self.parent_view = parent_view
         self.world = world
 
-        # ui events
+        # domain events
         self.world.data.events.app_started.connect(self.on_app_started)
 
     def on_app_started(self):

@@ -30,6 +30,7 @@ Here is a rough implementation plan for Orkestra with backlog
 - Variables in Environment
 - Using Variables in Steps
 - Custom List Item Widget to Display Step 
+- Load all steps from database on application start-up
 
 ## Release 2.0.0
 

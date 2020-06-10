@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import attr
 
@@ -14,6 +15,7 @@ class AppStateEntity(BaseEntity):
     record_type: str = APP_STATE_RECORD_TYPE
     selected_tool: str = ""
     scratch_note: str = ""
+    selected_step_id: Optional[str] = None
 
 
 class AppStateStore(BaseStore):
@@ -40,14 +42,12 @@ class AppStateStore(BaseStore):
 
         return AppStateEntity.from_json_str(app_state_db["object"])
 
-    def update_selected_tool(self, selected_tool):
-        logging.debug("Updating selected tool to {}".format(selected_tool))
-        if not selected_tool:
-            return
+    def update_selected_step(self, selected_step_id):
+        logging.debug("Update selected step to {}".format(selected_step_id))
 
-        self.app_state.selected_tool = selected_tool
+        self.app_state.selected_step_id = selected_step_id
         self.update_app_state_in_db()
-        self.ds.events.tool_switched.emit(selected_tool)
+        self.ds.events.step_selection_changed.emit(selected_step_id)
 
     def get_selected_tool(self):
         return self.app_state.selected_tool
