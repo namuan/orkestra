@@ -1,4 +1,3 @@
-# Test that the Fake FoldersView is called to update folder on App started event
 from app.views.main_window import MainWindow
 
 

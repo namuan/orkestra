@@ -1,11 +1,10 @@
 import dataset
 
-from app.signals import AppEvents, AppCommands
+from app.signals import AppEvents
 
 
 class DataStore:
     events: AppEvents = AppEvents()
-    commands: AppCommands = AppCommands()
 
     def __init__(self, data_dir):
         self.data_dir = data_dir

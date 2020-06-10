@@ -35,7 +35,7 @@ class ToolbarController:
         for step in AVAILABLE_STEPS:
             s_action = QAction(step, self.main_window)
             s_action.triggered.connect(
-                partial(self.main_window.steps_controller.add_step, step)
+                partial(self.main_window.steps_controller.trigger_add_step_command, step)
             )
             steps_menu.addAction(s_action)
 

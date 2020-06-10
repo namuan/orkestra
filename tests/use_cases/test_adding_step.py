@@ -1,13 +1,14 @@
 from app.views.main_window import MainWindow
 
 
-def test_show_all_folders(qtbot):
+def test_add_new_step(qtbot):
     # given
     window = MainWindow()
-
-    # when
     window.show()
     qtbot.addWidget(window)
 
+    # when
+    window.steps_controller.trigger_add_step_command("HTTP")
+
     # then
-    assert window.cmb_folders.count() == 1
+    assert False

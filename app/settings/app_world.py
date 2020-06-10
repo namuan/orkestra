@@ -10,6 +10,7 @@ from app.core.str_utils import str_to_bool
 from app.data.app_state import AppStateStore
 from app.data.data_store import DataStore
 from app.data.folder import FolderStore
+from app.data.step import StepStore
 from app.settings.app_config import AppConfig
 
 
@@ -20,6 +21,7 @@ class AppWorld:
     data: DataStore
     app_state_store: AppStateStore
     folder_store: FolderStore
+    step_store: StepStore
 
     def __init__(self):
         self.docs_location: Path = Path(
@@ -40,6 +42,7 @@ class AppWorld:
         self.data = DataStore(self.app_dir)
         self.app_state_store = AppStateStore(self.data)
         self.folder_store = FolderStore(self.data)
+        self.step_store = StepStore(self.data)
 
     def init_logger(self):
         log_file = f"{self.app_name}.log"

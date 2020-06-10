@@ -3,7 +3,7 @@ from uuid import uuid4
 
 import attr
 
-from app.data import BaseEntity
+from app.data import BaseEntity, BaseStore
 
 
 @attr.s(auto_attribs=True)
@@ -17,10 +17,11 @@ class Folder:
 class FoldersEntity(BaseEntity):
     folders: List[Folder] = [Folder(name="Default")]
 
+# @todo: Add Record Type
 
-class FolderStore:
+class FolderStore(BaseStore):
     def __init__(self, data_store):
-        self.data_store = data_store
+        super().__init__(data_store)
         self._folders = FoldersEntity()
 
     @property

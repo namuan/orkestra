@@ -20,3 +20,8 @@ class BaseEntity:
 
     def to_json_str(self):
         return json.dumps(self.to_json())
+
+
+class BaseStore:
+    def __init__(self, data_store):
+        self.ds = data_store

@@ -3,7 +3,7 @@ import logging
 import attr
 
 from app.core.str_utils import plain_to_b64_str, b64_to_plain_str
-from app.data import BaseEntity
+from app.data import BaseEntity, BaseStore
 from app.data.data_store import DataStore
 
 APP_STATE_RECORD_TYPE = "app_state"
@@ -16,9 +16,9 @@ class AppStateEntity(BaseEntity):
     scratch_note: str = ""
 
 
-class AppStateStore:
+class AppStateStore(BaseStore):
     def __init__(self, data_store: DataStore):
-        self.ds = data_store
+        super().__init__(data_store)
         self._app_state = self.get_app_state()
 
     @property
