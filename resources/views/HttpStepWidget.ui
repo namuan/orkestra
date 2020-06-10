@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HttpStepWidget</class>
+ <widget class="QWidget" name="HttpStepWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>875</width>
+    <height>755</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QFrame" name="http_path">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="cmb_http_method"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="txt_http_url"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_send_request">
+        <property name="text">
+         <string>Send</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="http_request">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QTabWidget" name="tab_request_elements">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="description">
+         <attribute name="title">
+          <string>Description</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPlainTextEdit" name="txt_http_step_description"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="header_params">
+         <attribute name="title">
+          <string>Headers</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="query_params">
+         <attribute name="title">
+          <string>Query Params</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="form_params">
+         <attribute name="title">
+          <string>Form Params</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="request_body">
+         <attribute name="title">
+          <string>Request Body</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="http_response">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QTabWidget" name="tab_response_elements">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="raw_request">
+         <attribute name="title">
+          <string>Raw Request</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPlainTextEdit" name="txt_raw_request"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="raw_response">
+         <attribute name="title">
+          <string>Raw Response</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPlainTextEdit" name="txt_raw_response"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="formatted_response">
+         <attribute name="title">
+          <string>Formatted Response</string>
+         </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QPlainTextEdit" name="txt_formatted_response"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
