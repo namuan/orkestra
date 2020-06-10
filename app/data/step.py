@@ -1,3 +1,5 @@
+import logging
+
 import attr
 
 from app.commands.add_step_command import AddStepCommand
@@ -35,4 +37,11 @@ class StepStore(BaseStore):
             ),
             ["step_id"],
         )
+        logging.info("Upsert Step: {}".format(step_entity.id))
         self.ds.events.step_added.emit(step_entity.id)
+
+    def get_step(self, step_id):
+        logging.info("Get Step: {}".format(step_id))
+        table = self.ds.table_for(STEP_RECORD_TYPE)
+        obj_db = table.find_one(name=STEP_RECORD_TYPE, step_id=step_id)
+        return StepEntity.from_json_str(obj_db["object"])
