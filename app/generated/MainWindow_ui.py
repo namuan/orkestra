@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 
 class Ui_MainWindow(object):
@@ -59,8 +59,8 @@ class Ui_MainWindow(object):
         self.detailsFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.detailsFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.detailsFrame.setObjectName("detailsFrame")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.detailsFrame)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.toolWidgetLayout = QtWidgets.QHBoxLayout(self.detailsFrame)
+        self.toolWidgetLayout.setObjectName("toolWidgetLayout")
         self.splitter_3 = QtWidgets.QSplitter(self.detailsFrame)
         self.splitter_3.setOrientation(QtCore.Qt.Vertical)
         self.splitter_3.setObjectName("splitter_3")
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.responseFrame)
         self.label_3.setGeometry(QtCore.QRect(140, 100, 101, 16))
         self.label_3.setObjectName("label_3")
-        self.horizontalLayout_2.addWidget(self.splitter_3)
+        self.toolWidgetLayout.addWidget(self.splitter_3)
         self.notesFrame = QtWidgets.QFrame(self.splitter_2)
         self.notesFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.notesFrame.setFrameShadow(QtWidgets.QFrame.Raised)

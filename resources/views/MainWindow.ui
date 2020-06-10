@@ -71,7 +71,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="toolWidgetLayout">
          <item>
           <widget class="QSplitter" name="splitter_3">
            <property name="orientation">

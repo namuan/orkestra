@@ -10,6 +10,7 @@ from app.controllers import (
     ToolbarController,
     ShortcutController,
     ScratchPadController,
+    StepSwitcherController,
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.settings.app_world import AppWorld
@@ -31,6 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.toolbar_controller = ToolbarController(self)
         self.shortcut_controller = ShortcutController(self)
         self.scratch_pad_controller = ScratchPadController(self)
+        self.step_switcher_controller = StepSwitcherController(self)
 
         # Initialise Sub-Views
         self.config_view = ConfigurationDialog(self)
@@ -61,3 +63,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qApp.exit(0)
         except:
             pass
+
+    def replace_widget(self, selected_widget):
+        logging.info("Switching Layout for {}".format(selected_widget))
+        self.clear_layout(self.toolWidgetLayout)
+        self.toolWidgetLayout.addWidget(selected_widget)
+
+    def clear_layout(self, layout):
+        for i in reversed(range(layout.count())):
+            widget_item = layout.takeAt(i)
+            if widget_item:
+                widget_item.widget().deleteLater()
