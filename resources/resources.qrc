@@ -10,5 +10,6 @@
         <file>icons/app.svg</file>
         <file>images/configure-48.png</file>
         <file>images/plus-48.png</file>
+        <file>images/environment-48.png</file>
     </qresource>
 </RCC>

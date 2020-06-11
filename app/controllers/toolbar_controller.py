@@ -49,8 +49,23 @@ class ToolbarController:
 
         self.toolbar.addSeparator()
 
+        toolbar_environment_action = QAction(
+            QIcon(":/images/environment-48.png"),
+            "Configure Environments",
+            self.main_window,
+        )
+
+        # TODO: Attach an event handler to trigger on click
+
+        self.toolbar.addAction(toolbar_environment_action)
+
+        # TODO: Add a combo box for displaying environments
+
+        self.toolbar.addSeparator()
+
         spacer = QWidget(self.main_window)
         spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         self.toolbar.addWidget(spacer)
 
         toolbar_configure_action = QAction(
