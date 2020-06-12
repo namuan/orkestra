@@ -54,9 +54,9 @@ class ToolbarController:
             "Configure Environments",
             self.main_window,
         )
-
-        # TODO: Attach an event handler to trigger on click
-
+        toolbar_environment_action.triggered.connect(
+            self.main_window.environment_view.show_dialog
+        )
         self.toolbar.addAction(toolbar_environment_action)
 
         # TODO: Add a combo box for displaying environments

@@ -14,7 +14,7 @@ from app.controllers import (
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.settings.app_world import AppWorld
-from app.views import ConfigurationDialog, FoldersView, StepListView
+from app.views import ConfigurationDialog, FoldersView, StepListView, EnvironmentView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -38,6 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.config_view = ConfigurationDialog(self)
         self.folders_view = FoldersView(self)
         self.step_list_view = StepListView(self)
+        self.environment_view = EnvironmentView(self)
 
         # Initialise components
         self.toolbar_controller.init_items()
