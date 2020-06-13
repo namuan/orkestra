@@ -49,9 +49,6 @@ class AppStateStore(BaseStore):
         self.update_app_state_in_db()
         self.ds.events.step_selection_changed.emit(selected_step_id)
 
-    def get_selected_tool(self):
-        return self.app_state.selected_tool
-
     def update_scratch_note(self, scratch_note):
         logging.debug("Updating Scratch Pad: Characters: {}".format(len(scratch_note)))
         if not scratch_note:
