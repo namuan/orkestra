@@ -6,14 +6,14 @@ from PyQt5.QtGui import QCloseEvent
 from PyQt5.QtWidgets import QMainWindow, qApp
 
 from app.controllers import (
-    MainWindowController,
-    ShortcutController
+    MainWindowController
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.sections.configuration import ConfigurationDialog
 from app.sections.environment import EnvironmentView
 from app.sections.folder import FoldersView
 from app.sections.scratchpad import ScratchPadController
+from app.sections.shortcut import ShortcutController
 from app.sections.step import StepListView, StepSwitcherController
 from app.sections.toolbar import ToolbarController
 from app.settings.app_world import AppWorld

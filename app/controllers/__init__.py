@@ -1,2 +1,1 @@
 from .main_controller import MainWindowController
-from .shortcut_controller import ShortcutController
