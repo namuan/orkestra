@@ -15,6 +15,7 @@ from app.sections.step import StepListView, StepSwitcherController
 from app.sections.toolbar import ToolbarController
 from app.settings.app_world import AppWorld
 from .main_controller import MainWindowController
+from ..toolbar.environment_list_view import EnvironmentListView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -39,6 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.folders_view = FoldersView(self)
         self.step_list_view = StepListView(self)
         self.environment_view = EnvironmentView(self)
+        self.environment_list_view = EnvironmentListView(self)
 
         # Initialise components
         self.toolbar_controller.init_items()

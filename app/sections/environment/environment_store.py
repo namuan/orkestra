@@ -15,7 +15,7 @@ class Environment:
 
 @attr.s(auto_attribs=True)
 class EnvironmentEntity(BaseEntity):
-    environments: List[str]
+    environments: List[Environment]
     record_type: str = ENVIRONMENT_RECORD_TYPE
 
 
@@ -25,7 +25,7 @@ class EnvironmentStore(BaseStore):
 
     def upsert_environments(self, environments):
         environment_entity = EnvironmentEntity(
-            environments=environments
+            environments=[Environment(name=e) for e in environments]
         )
         table = self.ds.table_for(environment_entity.record_type)
         table.upsert(

@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (
     QWidget,
     QSizePolicy,
     QAction,
-    QMenu,
+    QMenu, QComboBox, QWidgetAction,
 )
 
 from app.commands.add_step_command import AddStepCommand
@@ -23,7 +23,7 @@ class ToolbarController:
         self.toolbar = QToolBar()
         self.world: AppWorld = self.main_window.world
 
-        # ui events
+        # app start events
         self.world.data.events.app_started.connect(self.on_app_started)
 
     def on_app_started(self):
@@ -56,7 +56,16 @@ class ToolbarController:
         toolbar_environment_action.triggered.connect(self.main_window.environment_view.show_dialog)
         self.toolbar.addAction(toolbar_environment_action)
 
-        # TODO: Add a combo box for displaying environments
+        tool_bar_envs_list = QComboBox(self.main_window)
+        tool_bar_envs_list.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        tool_bar_envs_list.setDuplicatesEnabled(False)
+        tool_bar_envs_list.currentTextChanged.connect(
+            self.main_window.environment_list_view.on_toolbar_selected_environment_changed
+        )
+        tool_bar_envs_list_action = QWidgetAction(self.main_window)
+        tool_bar_envs_list_action.setText("Environmnents")
+        tool_bar_envs_list_action.setDefaultWidget(tool_bar_envs_list)
+        self.toolbar.addAction(tool_bar_envs_list_action)
 
         self.toolbar.addSeparator()
 

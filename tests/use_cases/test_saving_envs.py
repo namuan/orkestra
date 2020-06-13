@@ -43,3 +43,8 @@ def test_loading_envs(qtbot):
     # then
     assert window.environment_view.lst_environments.count() == NO_OF_ENVIRONMENTS, \
         "Environments not being loaded from database on a fresh re-start"
+
+    # and
+    env_list_combo = window.environment_list_view.get_environment_list_combo()
+    assert env_list_combo.count() == NO_OF_ENVIRONMENTS, \
+        "Environments not loaded in toolbar on fresh re-start"
