@@ -9,13 +9,12 @@ from app.controllers import (
     MainWindowController,
     ToolbarController,
     ShortcutController,
-    ScratchPadController,
-    StepSwitcherController,
+    ScratchPadController
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.sections.environment import EnvironmentView
 from app.sections.folder import FoldersView
-from app.sections.step import StepListView
+from app.sections.step import StepListView, StepSwitcherController
 from app.settings.app_world import AppWorld
 from app.views import ConfigurationDialog
 
