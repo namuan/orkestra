@@ -3,7 +3,7 @@ from PyQt5 import QtCore
 from app.views.main_window import MainWindow
 
 
-def test_add_new_steps(qtbot):
+def test_adding_removing_env(qtbot):
     # given
     window = MainWindow()
     window.show()
