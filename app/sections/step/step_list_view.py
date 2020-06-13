@@ -4,9 +4,9 @@ from PyQt5.QtCore import QModelIndex, QVariant
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QListView
 
-from app.controllers import StepListController
 from app.core.constants import STEP_LIST_OBJECT_ROLE, STEP_LIST_ID_ROLE
-from app.data.step import StepEntity
+from .step_list_controller import StepListController
+from .step_store import StepEntity
 
 
 class StepListView:
