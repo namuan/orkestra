@@ -14,4 +14,5 @@ def test_save_scratchpad(qtbot):
     window.show()
 
     # then
-    assert window.txt_scratch_pad.toPlainText() == "Hello World"
+    assert window.txt_scratch_pad.toPlainText() == "Hello World", \
+        "ScratchPad not being saved in database"

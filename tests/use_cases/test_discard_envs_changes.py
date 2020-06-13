@@ -9,9 +9,10 @@ def test_discard_envs_changes_on_cancel(qtbot):
     # given
     window = get_main_window()
     qtbot.addWidget(window)
+    window.world.environment_store.clear_environments()
+
     window.environment_view.show_dialog()
     no_of_environments = 5
-    window.world.environment_store.clear_environments()
 
     # when
     for i in range(no_of_environments):
@@ -30,9 +31,10 @@ def test_discard_envs_changes_on_esc(qtbot):
     # given
     window = get_main_window()
     qtbot.addWidget(window)
+    window.world.environment_store.clear_environments()
+
     window.environment_view.show_dialog()
     no_of_environments = 5
-    window.world.environment_store.clear_environments()
 
     # when
     for i in range(no_of_environments):

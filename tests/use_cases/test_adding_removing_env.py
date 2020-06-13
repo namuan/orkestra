@@ -7,6 +7,8 @@ def test_adding_removing_env(qtbot):
     # given
     window = get_main_window()
     qtbot.addWidget(window)
+    window.world.environment_store.clear_environments()
+
     window.environment_view.show_dialog()
     no_of_environments = 5
 

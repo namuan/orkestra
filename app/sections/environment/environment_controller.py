@@ -29,3 +29,9 @@ class EnvironmentController:
         ]
         self.world.environment_store.upsert_environments(environments)
         self.parent.close()
+
+    def show_dialog(self):
+        environments = self.world.environment_store.get_environments()
+        for env in environments:
+            self.parent.add_new_environment_widget(env)
+        self.parent.show()

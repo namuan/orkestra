@@ -10,4 +10,5 @@ def test_show_all_folders(qtbot):
     qtbot.addWidget(window)
 
     # then
-    assert window.cmb_folders.count() == 1
+    assert window.cmb_folders.count() == 1, \
+        "Unable to load Default folder"

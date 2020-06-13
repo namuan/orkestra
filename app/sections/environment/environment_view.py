@@ -16,7 +16,11 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
         self.controller = EnvironmentController(self, main_window.world)
 
     def show_dialog(self):
-        self.show()
+        self.clear_environments()
+        self.controller.show_dialog()
+
+    def clear_environments(self):
+        self.lst_environments.clear()
 
     def remove_selected_environment_widget(self):
         selected_row = self.lst_environments.currentRow()

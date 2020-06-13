@@ -11,4 +11,5 @@ def test_add_new_steps(qtbot):
     window.toolbar_controller.trigger_add_step_command("SQL")
 
     # then
-    assert window.lst_steps.model().rowCount() == 2
+    assert window.lst_steps.model().rowCount() == 2, \
+        "Unable to add steps using the toolbar button"
