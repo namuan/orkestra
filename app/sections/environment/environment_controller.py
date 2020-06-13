@@ -9,7 +9,6 @@ class EnvironmentController:
         # ui events
         self.parent.btn_add_environment.pressed.connect(self.trigger_add_environment)
         self.parent.btn_remove_environment.pressed.connect(self.trigger_remove_environment)
-        self.parent.btn_dialog_close.rejected.connect(self.trigger_discard_changes)
         self.parent.btn_dialog_close.accepted.connect(self.trigger_save_changes)
         self.parent.lst_environments.itemChanged.connect(self.trigger_current_item_changed)
 
@@ -22,9 +21,6 @@ class EnvironmentController:
 
     def trigger_remove_environment(self):
         self.parent.remove_selected_environment_widget()
-
-    def trigger_discard_changes(self):
-        pass
 
     def trigger_save_changes(self):
         environments = [

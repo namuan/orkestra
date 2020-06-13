@@ -41,5 +41,12 @@ class EnvironmentStore(BaseStore):
     def get_environments(self):
         table = self.ds.table_for(ENVIRONMENT_RECORD_TYPE)
         environments_db = table.find_one(name=ENVIRONMENT_RECORD_TYPE)
+        if not environments_db:
+            return []
+
         environment_entity = EnvironmentEntity.from_json_str(environments_db["object"])
         return environment_entity.environments
+
+    def clear_environments(self):
+        table = self.ds.table_for(ENVIRONMENT_RECORD_TYPE)
+        table.delete(name=ENVIRONMENT_RECORD_TYPE)
