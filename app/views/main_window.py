@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import QMainWindow, qApp
 
 from app.controllers import (
     MainWindowController,
-    ToolbarController,
     ShortcutController
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
@@ -16,6 +15,7 @@ from app.sections.environment import EnvironmentView
 from app.sections.folder import FoldersView
 from app.sections.scratchpad import ScratchPadController
 from app.sections.step import StepListView, StepSwitcherController
+from app.sections.toolbar import ToolbarController
 from app.settings.app_world import AppWorld
 
 
