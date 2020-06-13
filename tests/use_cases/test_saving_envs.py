@@ -1,13 +1,12 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialogButtonBox
 
-from app.sections.main import MainWindow
+from . import get_main_window
 
 
 def test_saving_envs(qtbot):
     # given
-    window = MainWindow()
-    window.show()
+    window = get_main_window()
     qtbot.addWidget(window)
     window.environment_view.show_dialog()
     no_of_environments = 5

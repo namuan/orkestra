@@ -1,12 +1,11 @@
 from PyQt5 import QtCore
 
-from app.sections.main import MainWindow
+from . import get_main_window
 
 
 def test_check_configuration(qtbot):
     # given
-    window = MainWindow()
-    window.show()
+    window = get_main_window()
     qtbot.addWidget(window)
     window.config_view.show_dialog()
 

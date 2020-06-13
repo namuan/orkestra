@@ -1,12 +1,11 @@
-from app.sections.main import MainWindow
 from app.widgets.http_step_widget import HttpStepWidget
 from app.widgets.sql_step_widget import SqlStepWidget
+from . import get_main_window
 
 
 def test_switching_steps(qtbot):
     # given
-    window = MainWindow()
-    window.show()
+    window = get_main_window()
     qtbot.addWidget(window)
     window.toolbar_controller.trigger_add_step_command("HTTP")
     window.toolbar_controller.trigger_add_step_command("SQL")

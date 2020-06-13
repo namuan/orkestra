@@ -1,9 +1,9 @@
-from app.sections.main import MainWindow
+from . import get_main_window
 
 
 def test_show_all_folders(qtbot):
     # given
-    window = MainWindow()
+    window = get_main_window()
 
     # when
     window.show()

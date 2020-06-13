@@ -1,10 +1,9 @@
-from app.sections.main import MainWindow
+from . import get_main_window
 
 
 def test_add_new_steps(qtbot):
     # given
-    window = MainWindow()
-    window.show()
+    window = get_main_window()
     qtbot.addWidget(window)
 
     # when
