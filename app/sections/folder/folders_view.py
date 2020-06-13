@@ -1,4 +1,4 @@
-from app.controllers.folders_controller import FoldersController
+from .folders_controller import FoldersController
 
 
 class FoldersView:

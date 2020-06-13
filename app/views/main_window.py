@@ -14,9 +14,10 @@ from app.controllers import (
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.sections.environment import EnvironmentView
+from app.sections.folder import FoldersView
 from app.sections.step import StepListView
 from app.settings.app_world import AppWorld
-from app.views import ConfigurationDialog, FoldersView
+from app.views import ConfigurationDialog
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):

@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import qApp
 from app.core.str_utils import str_to_bool
 from app.data.app_state import AppStateStore
 from app.data.data_store import DataStore
-from app.data.folder import FolderStore
+from app.sections.folder import FolderStore
 from app.sections.step import StepStore
 from app.settings.app_config import AppConfig
 
