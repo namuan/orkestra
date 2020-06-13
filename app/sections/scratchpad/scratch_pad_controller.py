@@ -1,8 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, QEvent
 
-from app.settings.app_world import AppWorld
-
 
 class ScratchPadEvents(QObject):
     def __init__(self, main_window, app):
