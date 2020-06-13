@@ -27,4 +27,8 @@ class EnvironmentController:
         pass
 
     def trigger_save_changes(self):
-        pass
+        environments = [
+            self.parent.lst_environments.item(i).text()
+            for i in range(self.parent.lst_environments.count())
+        ]
+        self.world.environment_store.upsert_environments(environments)
