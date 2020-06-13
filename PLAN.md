@@ -27,6 +27,7 @@ Here is a rough implementation plan for Orkestra with backlog
 - Implement functionality behind SQL Client
 
 **Outstanding Tasks**
+- _Welcome Screen_ Setup Default Actions if no steps are currently added
 - Variables in Environment
 - Using Variables in Steps
 - Custom List Item Widget to Display Step 

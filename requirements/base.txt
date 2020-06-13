@@ -6,3 +6,4 @@ Pygments
 dataset
 mistune
 jsonpath-ng
+Faker

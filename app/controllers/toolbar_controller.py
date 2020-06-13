@@ -22,7 +22,6 @@ class ToolbarController:
         self.main_window = main_window
         self.toolbar = QToolBar()
         self.world: AppWorld = self.main_window.world
-        self.populating_tools = True
 
         # ui events
         self.world.data.events.app_started.connect(self.on_app_started)
@@ -54,9 +53,7 @@ class ToolbarController:
             "Configure Environments",
             self.main_window,
         )
-        toolbar_environment_action.triggered.connect(
-            self.main_window.environment_view.show_dialog
-        )
+        toolbar_environment_action.triggered.connect(self.main_window.environment_view.show_dialog)
         self.toolbar.addAction(toolbar_environment_action)
 
         # TODO: Add a combo box for displaying environments
