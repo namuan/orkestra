@@ -3,8 +3,8 @@ import logging
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog
 
-from app.controllers.environment_controller import EnvironmentController
 from app.generated.EnvironmentDialog_ui import Ui_EnvironmentsDialog
+from .environment_controller import EnvironmentController
 
 
 class EnvironmentView(QDialog, Ui_EnvironmentsDialog):

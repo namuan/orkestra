@@ -13,8 +13,9 @@ from app.controllers import (
     StepSwitcherController,
 )
 from app.generated.MainWindow_ui import Ui_MainWindow
+from app.sections.environment import EnvironmentView
 from app.settings.app_world import AppWorld
-from app.views import ConfigurationDialog, FoldersView, StepListView, EnvironmentView
+from app.views import ConfigurationDialog, FoldersView, StepListView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
