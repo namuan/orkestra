@@ -1,4 +1,4 @@
-from app.settings.app_config import AppConfig
+from .app_config import AppConfig
 
 
 class ConfigController:

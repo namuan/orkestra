@@ -1,4 +1,4 @@
-from app.views.main_window import MainWindow
+from app.sections.main import MainWindow
 from app.widgets.http_step_widget import HttpStepWidget
 from app.widgets.sql_step_widget import SqlStepWidget
 

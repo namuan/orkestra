@@ -1,4 +1,4 @@
-from app.views.main_window import MainWindow
+from app.sections.main import MainWindow
 
 
 def test_save_scratchpad(qtbot):
