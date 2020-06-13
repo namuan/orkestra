@@ -28,3 +28,4 @@ class EnvironmentController:
             for i in range(self.parent.lst_environments.count())
         ]
         self.world.environment_store.upsert_environments(environments)
+        self.parent.close()
