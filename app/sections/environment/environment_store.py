@@ -36,7 +36,7 @@ class EnvironmentStore(BaseStore):
             ["name"],
         )
         logging.info("Upsert All Environments")
-        self.ds.events.environments_added.emit()
+        self.ds.events.environments_changed.emit()
 
     def get_environments(self):
         table = self.ds.table_for(ENVIRONMENT_RECORD_TYPE)

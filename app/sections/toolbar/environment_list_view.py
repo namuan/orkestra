@@ -1,15 +1,12 @@
+from .environment_list_controller import EnvironmentListController
+
+
 class EnvironmentListView:
     def __init__(self, main_window):
         self.main_window = main_window
         self.world = main_window.world
         self.toolbar = main_window.toolbar_controller.toolbar
-
-        # app start event
-        self.world.data.events.app_started.connect(self.on_app_started)
-
-    def on_app_started(self):
-        environments = self.world.environment_store.get_environments()
-        self.populate_environments(environments)
+        self.controller = EnvironmentListController(self, self.main_window.world)
 
     def populate_environments(self, environments):
         environment_list_combo = self.get_environment_list_combo()
