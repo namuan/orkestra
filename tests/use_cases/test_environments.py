@@ -2,7 +2,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialogButtonBox
 
-from . import get_main_window
+from . import get_main_window, close_application
 
 NO_OF_ENVIRONMENTS = 5
 NO_OF_ENVIRONMENTS_TO_DELETE = 3
@@ -23,24 +23,38 @@ def show_window(qtbot, clear_environments=False):
     return window
 
 
+def add_environments(qtbot, window, number):
+    for i in range(number):
+        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+
+
+def remove_environments(qtbot, window, number):
+    for i in range(number):
+        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.LeftButton)
+
+
+def close_and_save_environments(qtbot, window):
+    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
+    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+
+
+def close_and_discard_changes(qtbot, window):
+    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Cancel)
+    qtbot.mouseClick(cancel_button, QtCore.Qt.LeftButton)
+
+
 def test_adding_removing_env(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
-    window.world.environment_store.clear_environments()
-
-    window.environment_view.show_dialog()
+    window = show_window(qtbot, clear_environments=True)
 
     # when
-    for i in range(NO_OF_ENVIRONMENTS):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # then
     assert window.environment_view.lst_environments.count() == NO_OF_ENVIRONMENTS
 
     # remove
-    for i in range(NO_OF_ENVIRONMENTS):
-        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.LeftButton)
+    remove_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # then
     assert window.environment_view.lst_environments.count() == 0
@@ -52,17 +66,13 @@ def test_renaming_environment(qtbot):
 
 def test_saving_envs(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
-    window.environment_view.show_dialog()
+    window = show_window(qtbot, clear_environments=True)
 
     # and (adding a few environments)
-    for i in range(NO_OF_ENVIRONMENTS):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # when
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    close_and_save_environments(qtbot, window)
 
     # then
     environments = window.world.environment_store.get_environments()
@@ -76,52 +86,41 @@ def test_saving_envs(qtbot):
         "Seems like the dialog box is reloading environments"
 
 
-# TODO: Depends on the previous test.
-# TODO: Need to find a way to close and re-open window from the same test to de-couple the dependency
 def test_loading_envs(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
+    window = show_window(qtbot, clear_environments=True)
+
+    # and (adding a few environments)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # and (save)
+    close_and_save_environments(qtbot, window)
+
+    # and (close app)
+    close_application(window)
 
     # when
-    window.environment_view.show_dialog()
+    window = show_window(qtbot)
 
     # then
-    assert window.environment_view.lst_environments.count() == NO_OF_ENVIRONMENTS, \
-        "Environments not being loaded from database on a fresh re-start"
-
-    # and
-    env_list_combo = window.environment_list_view.get_environment_list_combo()
+    env_list_combo = get_toolbar_environments_combo(window)
     assert env_list_combo.count() == NO_OF_ENVIRONMENTS, \
         "Environments not loaded in toolbar on fresh re-start"
 
-
-def _add_environments(qtbot, window, number):
-    for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
-
-
-def _close_and_save_environments(qtbot, window):
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    # and
+    assert window.environment_view.lst_environments.count() == NO_OF_ENVIRONMENTS, \
+        "Environments not being loaded from database on a fresh re-start"
 
 
 def test_discard_envs_changes_on_cancel(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
-    window.world.environment_store.clear_environments()
-
-    window.environment_view.show_dialog()
-    no_of_environments = 5
+    window = show_window(qtbot, clear_environments=True)
 
     # when
-    for i in range(no_of_environments):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # then
-    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Cancel)
-    qtbot.mouseClick(cancel_button, QtCore.Qt.LeftButton)
+    close_and_discard_changes(qtbot, window)
 
     # then
     environments = window.world.environment_store.get_environments()
@@ -130,16 +129,10 @@ def test_discard_envs_changes_on_cancel(qtbot):
 
 def test_discard_envs_changes_on_esc(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
-    window.world.environment_store.clear_environments()
-
-    window.environment_view.show_dialog()
-    no_of_environments = 5
+    window = show_window(qtbot, clear_environments=True)
 
     # when
-    for i in range(no_of_environments):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # then
     qtbot.keyClick(window.environment_view.lst_environments, Qt.Key_Escape)
@@ -151,17 +144,13 @@ def test_discard_envs_changes_on_esc(qtbot):
 
 def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
     # given
-    window = get_main_window()
-    qtbot.addWidget(window)
-    window.environment_view.show_dialog()
+    window = show_window(qtbot, clear_environments=True)
 
     # and (adding a few environments)
-    for i in range(NO_OF_ENVIRONMENTS):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # when (click ok to save environments)
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    close_and_save_environments(qtbot, window)
 
     # then (check toolbar environments)
     assert get_toolbar_environments_combo(window).count() == NO_OF_ENVIRONMENTS, \
@@ -171,15 +160,12 @@ def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
     window.environment_view.show_dialog()
 
     # and (delete 3 and add 1 environment(s))
-    for i in range(NO_OF_ENVIRONMENTS_TO_DELETE):
-        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.LeftButton)
+    remove_environments(qtbot, window, NO_OF_ENVIRONMENTS_TO_DELETE)
 
-    for i in range(NO_OF_ENVIRONMENTS_TO_RE_ADD):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS_TO_RE_ADD)
 
     # and (click ok to save environments)
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    close_and_save_environments(qtbot, window)
 
     # then (check toolbar environments)
     remaining_environments = NO_OF_ENVIRONMENTS - NO_OF_ENVIRONMENTS_TO_DELETE + NO_OF_ENVIRONMENTS_TO_RE_ADD
@@ -190,8 +176,12 @@ def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
 def test_update_currently_selected_environment(qtbot):
     # given (a window with few environments)
     window = show_window(qtbot, clear_environments=True)
-    _add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
-    _close_and_save_environments(qtbot, window)
+
+    # and
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # and
+    close_and_save_environments(qtbot, window)
 
     # when (a new environment is selected from toolbar)
     toolbar_environments = get_toolbar_environments_combo(window)
