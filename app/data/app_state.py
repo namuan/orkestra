@@ -16,6 +16,7 @@ class AppStateEntity(BaseEntity):
     selected_tool: str = ""
     scratch_note: str = ""
     selected_step_id: Optional[str] = None
+    selected_environment: Optional[str] = None
 
 
 class AppStateStore(BaseStore):
@@ -48,6 +49,12 @@ class AppStateStore(BaseStore):
         self.app_state.selected_step_id = selected_step_id
         self.update_app_state_in_db()
         self.ds.events.step_selection_changed.emit(selected_step_id)
+
+    def update_selected_environment(self, new_selected_environment):
+        logging.debug("Update selected environment to {}".format(new_selected_environment))
+        self.app_state.selected_environment = new_selected_environment
+        self.update_app_state_in_db()
+        self.ds.events.environment_selection_changed.emit(new_selected_environment)
 
     def update_scratch_note(self, scratch_note):
         logging.debug("Updating Scratch Pad: Characters: {}".format(len(scratch_note)))

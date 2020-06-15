@@ -14,5 +14,6 @@
         <file>images/plus-48.png</file>
         <file>images/minus-48.png</file>
         <file>images/copy-48.png</file>
+        <file>images/quit-48.png</file>
     </qresource>
 </RCC>

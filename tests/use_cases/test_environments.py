@@ -13,6 +13,16 @@ def get_toolbar_environments_combo(window):
     return window.environment_list_view.get_environment_list_combo()
 
 
+def show_window(qtbot, clear_environments=False):
+    window = get_main_window()
+    qtbot.addWidget(window)
+    if clear_environments:
+        window.world.environment_store.clear_environments()
+
+    window.environment_view.show_dialog()
+    return window
+
+
 def test_adding_removing_env(qtbot):
     # given
     window = get_main_window()
@@ -34,6 +44,10 @@ def test_adding_removing_env(qtbot):
 
     # then
     assert window.environment_view.lst_environments.count() == 0
+
+
+def test_renaming_environment(qtbot):
+    pass
 
 
 def test_saving_envs(qtbot):
@@ -62,6 +76,8 @@ def test_saving_envs(qtbot):
         "Seems like the dialog box is reloading environments"
 
 
+# TODO: Depends on the previous test.
+# TODO: Need to find a way to close and re-open window from the same test to de-couple the dependency
 def test_loading_envs(qtbot):
     # given
     window = get_main_window()
@@ -78,6 +94,16 @@ def test_loading_envs(qtbot):
     env_list_combo = window.environment_list_view.get_environment_list_combo()
     assert env_list_combo.count() == NO_OF_ENVIRONMENTS, \
         "Environments not loaded in toolbar on fresh re-start"
+
+
+def _add_environments(qtbot, window, number):
+    for i in range(number):
+        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+
+
+def _close_and_save_environments(qtbot, window):
+    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
+    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
 
 
 def test_discard_envs_changes_on_cancel(qtbot):
@@ -159,3 +185,26 @@ def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
     remaining_environments = NO_OF_ENVIRONMENTS - NO_OF_ENVIRONMENTS_TO_DELETE + NO_OF_ENVIRONMENTS_TO_RE_ADD
     assert get_toolbar_environments_combo(window).count() == remaining_environments, \
         "Environments not loaded in toolbar on (deleting/re-adding) after Environments Dialog close"
+
+
+def test_update_currently_selected_environment(qtbot):
+    # given (a window with few environments)
+    window = show_window(qtbot, clear_environments=True)
+    _add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+    _close_and_save_environments(qtbot, window)
+
+    # when (a new environment is selected from toolbar)
+    toolbar_environments = get_toolbar_environments_combo(window)
+    toolbar_environments.setCurrentIndex(3)
+    selected_environment = toolbar_environments.currentText()
+
+    # and application is closed
+    window.toolbar_controller.trigger_quit_application()
+
+    # and window is re-opened
+    window = show_window(qtbot, clear_environments=True)
+
+    # then the selected environment should be same as before
+    toolbar_environments = get_toolbar_environments_combo(window)
+    selected_environment_after_restart = toolbar_environments.currentText()
+    assert selected_environment == selected_environment_after_restart

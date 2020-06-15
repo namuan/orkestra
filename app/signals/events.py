@@ -6,3 +6,4 @@ class AppEvents(QObject):
     step_added = pyqtSignal(str)  # StepEntity.id
     step_selection_changed = pyqtSignal(str)  # Newly selected StepEntity.id
     environments_changed = pyqtSignal()
+    environment_selection_changed = pyqtSignal(str)  # Newly selected environment name

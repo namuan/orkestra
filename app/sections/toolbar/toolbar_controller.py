@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
     QAction,
     QMenu, QComboBox, QWidgetAction,
 )
+from PyQt5.QtWidgets import qApp
 
 from app.commands.add_step_command import AddStepCommand
 from app.core.constants import AVAILABLE_STEPS
@@ -81,6 +82,17 @@ class ToolbarController:
             self.main_window.config_view.show_dialog
         )
         self.toolbar.addAction(toolbar_configure_action)
+
+        toolbar_quit_action = QAction(
+            QIcon(":/images/quit-48.png"), "Quit", self.main_window
+        )
+        toolbar_quit_action.triggered.connect(
+            self.trigger_quit_application
+        )
+        self.toolbar.addAction(toolbar_quit_action)
+
+    def trigger_quit_application(self):
+        qApp.quit()
 
     def trigger_add_step_command(self, step_name):
         add_step_command = AddStepCommand(step_type=StepType[step_name])
