@@ -13,7 +13,7 @@ def get_toolbar_environments_combo(window):
     return window.environment_list_view.get_environment_list_combo()
 
 
-def show_window(qtbot, clear_environments=False):
+def show_window(qtbot, clear_environments=True):
     window = get_main_window()
     qtbot.addWidget(window)
     if clear_environments:
@@ -45,7 +45,7 @@ def close_and_discard_changes(qtbot, window):
 
 def test_adding_removing_env(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # when
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -61,12 +61,31 @@ def test_adding_removing_env(qtbot):
 
 
 def test_renaming_environment(qtbot):
-    pass
+    # given a window
+    window = show_window(qtbot)
+
+    # add a few environments
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # select an environment from list
+    window.environment_view.lst_environments.setCurrentRow(2)
+    currently_selected = window.environment_view.lst_environments.currentItem()
+
+    # edit list item
+    new_environment_name = "Development"
+    currently_selected.setText(new_environment_name)
+
+    # save and close application
+    close_and_save_environments(qtbot, window)
+
+    # get environments from controller
+    environments = [e.name for e in window.environment_list_view.world.environment_store.get_environments()]
+    assert new_environment_name in environments
 
 
 def test_saving_envs(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # and (adding a few environments)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -88,7 +107,7 @@ def test_saving_envs(qtbot):
 
 def test_loading_envs(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # and (adding a few environments)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -100,7 +119,7 @@ def test_loading_envs(qtbot):
     close_application(window)
 
     # when
-    window = show_window(qtbot)
+    window = show_window(qtbot, clear_environments=False)
 
     # then
     env_list_combo = get_toolbar_environments_combo(window)
@@ -114,7 +133,7 @@ def test_loading_envs(qtbot):
 
 def test_discard_envs_changes_on_cancel(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # when
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -129,7 +148,7 @@ def test_discard_envs_changes_on_cancel(qtbot):
 
 def test_discard_envs_changes_on_esc(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # when
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -144,7 +163,7 @@ def test_discard_envs_changes_on_esc(qtbot):
 
 def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
     # given
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # and (adding a few environments)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -175,7 +194,7 @@ def test_refresh_toolbar_after_adding_deleting_envs(qtbot):
 
 def test_update_currently_selected_environment(qtbot):
     # given (a window with few environments)
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # and
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
@@ -192,7 +211,7 @@ def test_update_currently_selected_environment(qtbot):
     window.toolbar_controller.trigger_quit_application()
 
     # and window is re-opened
-    window = show_window(qtbot, clear_environments=True)
+    window = show_window(qtbot)
 
     # then the selected environment should be same as before
     toolbar_environments = get_toolbar_environments_combo(window)
