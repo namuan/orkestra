@@ -8,7 +8,9 @@ from PyQt5.QtWidgets import (
     QWidget,
     QSizePolicy,
     QAction,
-    QMenu, QComboBox, QWidgetAction,
+    QMenu,
+    QComboBox,
+    QWidgetAction,
 )
 from PyQt5.QtWidgets import qApp
 
@@ -54,11 +56,15 @@ class ToolbarController:
             "Configure Environments",
             self.main_window,
         )
-        toolbar_environment_action.triggered.connect(self.main_window.environment_view.show_dialog)
+        toolbar_environment_action.triggered.connect(
+            self.main_window.environment_view.show_dialog
+        )
         self.toolbar.addAction(toolbar_environment_action)
 
         tool_bar_envs_list = QComboBox(self.main_window)
-        tool_bar_envs_list.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        tool_bar_envs_list.setSizePolicy(
+            QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
+        )
         tool_bar_envs_list.setDuplicatesEnabled(False)
         tool_bar_envs_list.currentTextChanged.connect(
             self.main_window.environment_list_view.on_toolbar_selected_environment_changed
@@ -86,9 +92,7 @@ class ToolbarController:
         toolbar_quit_action = QAction(
             QIcon(":/images/quit-48.png"), "Quit", self.main_window
         )
-        toolbar_quit_action.triggered.connect(
-            self.trigger_quit_application
-        )
+        toolbar_quit_action.triggered.connect(self.trigger_quit_application)
         self.toolbar.addAction(toolbar_quit_action)
 
     def trigger_quit_application(self):

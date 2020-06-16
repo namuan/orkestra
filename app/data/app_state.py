@@ -51,7 +51,9 @@ class AppStateStore(BaseStore):
         self.ds.events.step_selection_changed.emit(selected_step_id)
 
     def update_selected_environment(self, new_selected_environment):
-        logging.debug("Update selected environment to {}".format(new_selected_environment))
+        logging.debug(
+            "Update selected environment to {}".format(new_selected_environment)
+        )
         self.app_state.selected_environment = new_selected_environment
         self.update_app_state_in_db()
         self.ds.events.environment_selection_changed.emit(new_selected_environment)

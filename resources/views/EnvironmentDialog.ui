@@ -211,7 +211,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="lst_environment_data">
+        <widget class="KeyValueListWidget" name="lst_environment_data">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>1</horstretch>
@@ -226,6 +226,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KeyValueListWidget</class>
+   <extends>QListWidget</extends>
+   <header>app.widgets.key_value_list_widget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

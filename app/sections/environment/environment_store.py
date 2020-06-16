@@ -30,8 +30,7 @@ class EnvironmentStore(BaseStore):
         table = self.ds.table_for(environment_entity.record_type)
         table.upsert(
             dict(
-                name=ENVIRONMENT_RECORD_TYPE,
-                object=environment_entity.to_json_str(),
+                name=ENVIRONMENT_RECORD_TYPE, object=environment_entity.to_json_str(),
             ),
             ["name"],
         )

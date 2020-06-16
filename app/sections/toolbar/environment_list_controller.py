@@ -7,7 +7,9 @@ class EnvironmentListController:
         self.world.data.events.app_started.connect(self.on_repopulate_environments)
 
         # domain events
-        self.world.data.events.environments_changed.connect(self.on_repopulate_environments)
+        self.world.data.events.environments_changed.connect(
+            self.on_repopulate_environments
+        )
 
     def on_repopulate_environments(self):
         selected_environment = self.world.app_state_store.app_state.selected_environment
