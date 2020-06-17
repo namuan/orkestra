@@ -15,6 +15,15 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
 
         self.controller = EnvironmentController(self, main_window.world)
 
+    def currently_selected_item(self):
+        return self.lst_environments.currentItem()
+
+    def environments(self):
+        return [
+            self.lst_environments.item(i).text()
+            for i in range(self.lst_environments.count())
+        ]
+
     def show_dialog(self):
         self.clear_environments()
         self.controller.show_dialog()

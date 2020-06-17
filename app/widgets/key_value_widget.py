@@ -17,14 +17,14 @@ class KeyValueWidget(QtWidgets.QWidget, Ui_KeyValueWidget):
 
     def set_data(self, name, v: DynamicStringData):
         self.k = name
-        self.v = v.value
+        self.v = v
 
         self.txt_item_name.setText(self.k)
-        self.txt_item_value.setText(self.v)
+        self.txt_item_value.setText(self.v.value)
         self.chk_item_enabled.setChecked(v.is_enabled)
 
     def get_data(self):
         self.k = self.txt_item_name.text().strip()
-        self.v = self.txt_item_value.text().strip()
+        self.v.value = self.txt_item_value.text().strip()
         self.v.is_enabled = self.chk_item_enabled.isChecked()
         return self.k, self.v
