@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Dict, Optional
 
 import attr
 
@@ -11,6 +11,7 @@ ENVIRONMENT_RECORD_TYPE = "environments"
 @attr.s(auto_attribs=True)
 class Environment:
     name: str
+    variables: Optional[Dict] = {}
 
 
 @attr.s(auto_attribs=True)
@@ -23,9 +24,9 @@ class EnvironmentStore(BaseStore):
     def __init__(self, data_store):
         super().__init__(data_store)
 
-    def upsert_environments(self, environments):
+    def upsert_environments(self, environments: Dict):
         environment_entity = EnvironmentEntity(
-            environments=[Environment(name=e) for e in environments]
+            environments=[Environment(name=k, variables=v) for k, v in environments.items()]
         )
         table = self.ds.table_for(environment_entity.record_type)
         table.upsert(
@@ -34,7 +35,7 @@ class EnvironmentStore(BaseStore):
             ),
             ["name"],
         )
-        logging.info("Upsert All Environments")
+        logging.info("Upsert All Environments - Total: {}".format(len(environments)))
         self.ds.events.environments_changed.emit()
 
     def get_environments(self):
@@ -45,6 +46,10 @@ class EnvironmentStore(BaseStore):
 
         environment_entity = EnvironmentEntity.from_json_str(environments_db["object"])
         return environment_entity.environments
+
+    def get_environment(self, environment_name):
+        environments = self.get_environments()
+        return next((e for e in environments if e.name == environment_name), None)
 
     def clear_environments(self):
         table = self.ds.table_for(ENVIRONMENT_RECORD_TYPE)

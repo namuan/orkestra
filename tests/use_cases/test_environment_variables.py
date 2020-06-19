@@ -67,6 +67,7 @@ def add_environment_variable(qtbot, window, var_name="Test Var Name", var_value=
 
 def select_environment(window, position):
     window.environment_view.lst_environments.setCurrentRow(position)
+    return window.environment_view.lst_environments.currentItem().text()
 
 
 def get_variables_for_selected_environment(window):
@@ -109,31 +110,31 @@ def test_delete_environment_variables_row(qtbot):
     assert get_key_value_list(window).count() == 1
 
 
+def set_environment_variables(qtbot, window, selected_env):
+    selected_environment_name = select_environment(window, position=selected_env.get('position'))
+    for i in range(len(selected_env.get('data'))):
+        add_environment_variable(qtbot, window, *selected_env.get('data')[i], position=i)
+    return selected_environment_name
+
+
 def test_save_data_when_switching_between_environments(qtbot):
     # given (a few environments)
     window = show_window(qtbot)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
-    # setup data
+    # setup data for selected environment
     selected_env = dict(
         position=2,
         data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
     )
-
-    # and (add variables for selected_env)
-    select_environment(window, position=selected_env.get('position'))
-    for i in range(len(selected_env.get('data'))):
-        add_environment_variable(qtbot, window, *selected_env.get('data')[i], position=i)
+    set_environment_variables(qtbot, window, selected_env)
 
     # and (add variables for changed_env)
     changed_env = dict(
         position=3,
         data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
     )
-
-    select_environment(window, position=changed_env.get('position'))
-    for i in range(len(changed_env.get('data'))):
-        add_environment_variable(qtbot, window, *changed_env.get('data')[i], position=i)
+    set_environment_variables(qtbot, window, changed_env)
 
     # when (switch back to previously selected environment)
     select_environment(window, selected_env.get('position'))
@@ -141,3 +142,27 @@ def test_save_data_when_switching_between_environments(qtbot):
     # then (the variables should be retained)
     actual_data = get_variables_for_selected_environment(window)
     assert actual_data == selected_env.get('data')
+
+
+def test_environment_variable_persistence(qtbot):
+    # given (a new window and environments)
+    window = show_window(qtbot)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # and (few environment variables)
+    selected_env = dict(
+        position=2,
+        data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
+    )
+    selected_environment_name = set_environment_variables(qtbot, window, selected_env)
+
+    # when (click ok)
+    close_and_save_environments(qtbot, window)
+
+    # then (should save have the selected environments)
+    actual_saved_environment = window.world.environment_store.get_environment(selected_environment_name)
+    assert actual_saved_environment
+
+    # and (should save all environment variables)
+    environment_variables = actual_saved_environment.variables
+    assert len(environment_variables) == 5
