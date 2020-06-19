@@ -88,14 +88,14 @@ class Ui_EnvironmentsDialog(object):
         self.btn_dialog_close.setObjectName("btn_dialog_close")
         self.horizontalLayout.addWidget(self.btn_dialog_close)
         self.verticalLayout.addWidget(self.env_header_frame)
-        self.lst_environment_data = KeyValueListWidget(self.env_data_frame)
+        self.lst_environment_variables = KeyValueListWidget(self.env_data_frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lst_environment_data.sizePolicy().hasHeightForWidth())
-        self.lst_environment_data.setSizePolicy(sizePolicy)
-        self.lst_environment_data.setObjectName("lst_environment_data")
-        self.verticalLayout.addWidget(self.lst_environment_data)
+        sizePolicy.setHeightForWidth(self.lst_environment_variables.sizePolicy().hasHeightForWidth())
+        self.lst_environment_variables.setSizePolicy(sizePolicy)
+        self.lst_environment_variables.setObjectName("lst_environment_variables")
+        self.verticalLayout.addWidget(self.lst_environment_variables)
         self.horizontalLayout_2.addWidget(self.splitter)
 
         self.retranslateUi(EnvironmentsDialog)
@@ -107,6 +107,4 @@ class Ui_EnvironmentsDialog(object):
         self.btn_add_environment.setText(_translate("EnvironmentsDialog", "+"))
         self.btn_remove_environment.setText(_translate("EnvironmentsDialog", "-"))
         self.label.setText(_translate("EnvironmentsDialog", "Environments"))
-
-
 from app.widgets.key_value_list_widget import KeyValueListWidget

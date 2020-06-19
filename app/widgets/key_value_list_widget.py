@@ -41,3 +41,22 @@ class KeyValueListWidget(QtWidgets.QWidget, Ui_KeyValueListWidget):
 
     def remove_key_value_widget(self, widget_item):
         self.key_value_item_list.takeItem(self.key_value_item_list.row(widget_item))
+
+    def items(self):
+        item_count = self.key_value_item_list.count()
+        return {
+            item_key: item_value.value for item_key, item_value in
+            [self.item_widget(i).get_data() for i in range(item_count - 1)]
+        }
+
+    def item_widget(self, position):
+        item: QListWidgetItem = self.key_value_item_list.item(position)
+        return self.key_value_item_list.itemWidget(item)
+
+    def clear(self):
+        self.key_value_item_list.clear()
+        self.setup_new_item_widget()
+
+    def update_items(self, data_items):
+        for i, (k, v) in enumerate(data_items.items()):
+            self.setup_new_key_value_widget(k, DynamicStringData(value=v), i)

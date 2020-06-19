@@ -2,6 +2,7 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialogButtonBox, QListWidgetItem
 
 from app.core.dynamic_string import DynamicStringData
+from app.core.faker_config import fake
 from app.widgets.key_value_widget import KeyValueWidget
 from . import get_main_window
 
@@ -19,6 +20,7 @@ def show_window(qtbot, clear_environments=True):
     qtbot.addWidget(window)
     if clear_environments:
         window.world.environment_store.clear_environments()
+        window.environment_view.clear_variables()
 
     window.environment_view.show_dialog()
     return window
@@ -51,16 +53,28 @@ def get_key_value_widget(window, position=0) -> KeyValueWidget:
 
 
 def get_key_value_list(window):
-    environments_variables_list_widget = window.environment_view.lst_environment_data
+    environments_variables_list_widget = window.environment_view.lst_environment_variables
     return environments_variables_list_widget.key_value_item_list
 
 
-def add_environment_variable(qtbot, window, var_name="Test Var Name", var_value="Test Var Value"):
-    environments_variables_list_widget = window.environment_view.lst_environment_data
+def add_environment_variable(qtbot, window, var_name="Test Var Name", var_value="Test Var Value", position=0):
+    environments_variables_list_widget = window.environment_view.lst_environment_variables
     environments_variables_list_widget.on_new_item_pressed()
-    key_value_widget: KeyValueWidget = get_key_value_widget(window)
+    key_value_widget: KeyValueWidget = get_key_value_widget(window, position)
     qtbot.keyClicks(key_value_widget.txt_item_name, var_name)
     qtbot.keyClicks(key_value_widget.txt_item_value, var_value)
+
+
+def select_environment(window, position):
+    window.environment_view.lst_environments.setCurrentRow(position)
+
+
+def get_variables_for_selected_environment(window):
+    item_count = get_key_value_list(window).count()
+    return [
+        (item_key, item_value.value) for item_key, item_value in
+        [get_key_value_widget(window, i).get_data() for i in range(item_count - 1)]
+    ]
 
 
 def test_adding_environment_variables(qtbot):
@@ -80,7 +94,7 @@ def test_adding_environment_variables(qtbot):
 
 
 def test_delete_environment_variables_row(qtbot):
-    #  given (a new environment row)
+    #  given (a few environments)
     window = show_window(qtbot)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
@@ -93,3 +107,37 @@ def test_delete_environment_variables_row(qtbot):
 
     # then number of items in list should be 1
     assert get_key_value_list(window).count() == 1
+
+
+def test_save_data_when_switching_between_environments(qtbot):
+    # given (a few environments)
+    window = show_window(qtbot)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # setup data
+    selected_env = dict(
+        position=2,
+        data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
+    )
+
+    # and (add variables for selected_env)
+    select_environment(window, position=selected_env.get('position'))
+    for i in range(len(selected_env.get('data'))):
+        add_environment_variable(qtbot, window, *selected_env.get('data')[i], position=i)
+
+    # and (add variables for changed_env)
+    changed_env = dict(
+        position=3,
+        data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
+    )
+
+    select_environment(window, position=changed_env.get('position'))
+    for i in range(len(changed_env.get('data'))):
+        add_environment_variable(qtbot, window, *changed_env.get('data')[i], position=i)
+
+    # when (switch back to previously selected environment)
+    select_environment(window, selected_env.get('position'))
+
+    # then (the variables should be retained)
+    actual_data = get_variables_for_selected_environment(window)
+    assert actual_data == selected_env.get('data')

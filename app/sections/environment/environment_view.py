@@ -18,6 +18,9 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
     def currently_selected_item(self):
         return self.lst_environments.currentItem()
 
+    def selected_environment_name(self):
+        return self.currently_selected_item().text() if self.currently_selected_item() else None
+
     def environments(self):
         return [
             self.lst_environments.item(i).text()
@@ -53,6 +56,15 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
     def setup_button_icons(self):
         self.btn_add_environment.setIcon(self._icon_with(":/images/plus-48.png"))
         self.btn_remove_environment.setIcon(self._icon_with(":/images/minus-48.png"))
+
+    def environment_variables(self):
+        return self.lst_environment_variables.items()
+
+    def clear_variables(self):
+        self.lst_environment_variables.clear()
+
+    def update_environment_variables(self, environment_variables):
+        self.lst_environment_variables.update_items(environment_variables)
 
     @staticmethod
     def _icon_with(image_resource):

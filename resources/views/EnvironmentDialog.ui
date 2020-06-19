@@ -211,7 +211,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KeyValueListWidget" name="lst_environment_data">
+        <widget class="KeyValueListWidget" name="lst_environment_variables">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>1</horstretch>
