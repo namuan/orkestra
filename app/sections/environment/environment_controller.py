@@ -5,7 +5,6 @@ class EnvironmentController:
     def __init__(self, parent, world):
         self.parent = parent
         self.world = world
-        self.loading_environments = False
         self.selected_environment = None
         self._environments_cache = {}
 
@@ -24,9 +23,6 @@ class EnvironmentController:
         )
 
     def trigger_another_item_selected(self):
-        if self.loading_environments:
-            return
-
         previously_selected_environment = self.selected_environment
         self.selected_environment = self.parent.selected_environment_name()
 
@@ -71,13 +67,11 @@ class EnvironmentController:
         self.parent.close()
 
     def show_dialog(self):
-        self.loading_environments = True
         environments = self.world.environment_store.get_environments()
         for env in environments:
             self.add_new_environment(env.name, env.variables)
 
         self.selected_environment = self.parent.selected_environment_name()
-        self.loading_environments = False
         self.parent.show()
 
     def update_environment_cache(self, environment_name, variables):

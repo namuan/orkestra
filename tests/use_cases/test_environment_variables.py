@@ -167,3 +167,59 @@ def test_environment_variable_persistence(qtbot):
     environment_variables = actual_saved_environment.variables
     assert len(environment_variables) == 5
     assert environment_variables == {k: v for (k, v) in selected_env.get('data')}
+
+
+def test_load_environment_variables_after_restart(qtbot):
+    # given (a new window and environments)
+    window = show_window(qtbot)
+    add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
+
+    # and (add variables for environment A)
+    environment_a_data = dict(
+        position=2,
+        data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
+    )
+    set_environment_variables(qtbot, window, environment_a_data)
+
+    # and (switch to environment B and add variables)
+    environment_b_data = dict(
+        position=4,
+        data=[(fake.domain_word(), fake.first_name()) for _ in range(5)]
+    )
+    set_environment_variables(qtbot, window, environment_b_data)
+
+    # and (close and save)
+    close_and_save_environments(qtbot, window)
+
+    # when (quit application)
+    window.toolbar_controller.trigger_quit_application()
+
+    # and (re-create window and display environments dialog)
+    window = show_window(qtbot, clear_environments=False)
+
+    # then (select environment A)
+    select_environment(window, position=environment_a_data.get('position'))
+
+    # and (check that environment variable matches with environment A)
+    environment_a_variables = get_variables_for_selected_environment(window)
+    assert environment_a_variables == environment_a_data.get('data')
+
+    # and (select environment B)
+    select_environment(window, position=environment_b_data.get('position'))
+
+    # and (check that environment variable matches with environment B)
+    environment_b_variables = get_variables_for_selected_environment(window)
+    assert environment_b_variables == environment_b_data.get('data')
+
+    # and (close again)
+    close_and_save_environments(qtbot, window)
+
+    # and (re-create window and display environments dialog)
+    window = show_window(qtbot, clear_environments=False)
+
+    # then (select environment A)
+    select_environment(window, position=environment_a_data.get('position'))
+
+    # and (check that environment variable matches with environment A)
+    environment_a_variables = get_variables_for_selected_environment(window)
+    assert environment_a_variables == environment_a_data.get('data')

@@ -9,3 +9,11 @@ def get_main_window():
 
 def close_application(window):
     window.toolbar_controller.trigger_quit_application()
+
+
+def wait(qtbot, time_ms=2000):
+    qtbot.wait(time_ms)
+
+
+def interact(qtbot):
+    qtbot.stopForInteraction()
