@@ -52,7 +52,7 @@ run: ## Runs the application
 	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/python3 app/__main__.py
 
 test: ## Run all unit tests
-	rm $$HOME/Library/Preferences/Python/orkestra.db
+	rm -vf $$HOME/Library/Preferences/Python/orkestra.db
 	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest tests
 
 runapp: ## Runs the packaged application

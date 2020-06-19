@@ -24,7 +24,7 @@ class EnvironmentStore(BaseStore):
     def __init__(self, data_store):
         super().__init__(data_store)
 
-    def upsert_environments(self, environments: Dict):
+    def upsert_environments(self, environments):
         environment_entity = EnvironmentEntity(
             environments=[Environment(name=k, variables=v) for k, v in environments.items()]
         )

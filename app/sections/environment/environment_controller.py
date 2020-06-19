@@ -7,7 +7,7 @@ class EnvironmentController:
         self.world = world
         self.loading_environments = False
         self.selected_environment = None
-        self.environments_cache = {}
+        self._environments_cache = {}
 
         # ui events
         self.parent.btn_add_environment.pressed.connect(self.trigger_add_environment)
@@ -29,21 +29,24 @@ class EnvironmentController:
 
         previously_selected_environment = self.selected_environment
         self.selected_environment = self.parent.selected_environment_name()
-        self.save_variables_in_cache(previously_selected_environment)
+
+        if previously_selected_environment in self._environments_cache.keys():
+            self.save_variables_in_cache(previously_selected_environment)
+
         self.parent.clear_variables()
         self.load_variables_from_cache(self.selected_environment)
 
     def save_variables_in_cache(self, environment):
         environment_variables = self.parent.environment_variables()
-        self.environments_cache[environment] = environment_variables
+        self.update_environment_cache(environment, environment_variables)
 
     def load_variables_from_cache(self, environment):
-        environment_variables = self.environments_cache[environment]
+        environment_variables = self._environments_cache[environment]
         self.parent.update_environment_variables(environment_variables)
 
     def trigger_current_item_changed(self, list_item):
         changed_environment_name = list_item.text()
-        self.environments_cache[changed_environment_name] = self.environments_cache.pop(self.selected_environment)
+        self._environments_cache[changed_environment_name] = self._environments_cache.pop(self.selected_environment)
         self.selected_environment = changed_environment_name
 
     def trigger_add_environment(self):
@@ -51,11 +54,12 @@ class EnvironmentController:
         self.add_new_environment(random_environment_name, {})
 
     def add_new_environment(self, name, variables):
-        self.environments_cache[name] = variables
+        self.update_environment_cache(name, variables)
         self.parent.add_new_environment_widget(name)
 
     def trigger_remove_environment(self):
-        del self.environments_cache[self.parent.selected_environment_name()]
+        selected_environment = self.parent.selected_environment_name()
+        self.remove_environment_from_cache(selected_environment)
         self.parent.remove_selected_environment_widget()
 
     def trigger_discard_changed(self):
@@ -63,7 +67,7 @@ class EnvironmentController:
 
     def trigger_save_changes(self):
         self.save_variables_in_cache(self.selected_environment)
-        self.world.environment_store.upsert_environments(self.environments_cache)
+        self.world.environment_store.upsert_environments(self._environments_cache)
         self.parent.close()
 
     def show_dialog(self):
@@ -75,3 +79,9 @@ class EnvironmentController:
         self.selected_environment = self.parent.selected_environment_name()
         self.loading_environments = False
         self.parent.show()
+
+    def update_environment_cache(self, environment_name, variables):
+        self._environments_cache[environment_name] = variables
+
+    def remove_environment_from_cache(self, environment_name):
+        del self._environments_cache[environment_name]
