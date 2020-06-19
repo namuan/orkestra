@@ -166,3 +166,4 @@ def test_environment_variable_persistence(qtbot):
     # and (should save all environment variables)
     environment_variables = actual_saved_environment.variables
     assert len(environment_variables) == 5
+    assert environment_variables == {k: v for (k, v) in selected_env.get('data')}
