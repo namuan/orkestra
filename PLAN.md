@@ -11,19 +11,18 @@ Here is a rough implementation plan for Orkestra with backlog
 - 0.3.5 - Swap between steps - https://github.com/namuan/orkestra/issues/4
 - 0.4.0 - Environments - https://github.com/namuan/orkestra/issues/5
 - 0.5.0 - Variables in Environment - https://github.com/namuan/orkestra/issues/6
+- 0.6.0 - Try Layout switching with QStackedWidget
 - 0.6.0 - _Welcome Screen_ Setup Default Actions if no steps are currently added
 - 0.6.0 - Load all steps from database on application start-up
 - 0.6.0 - Custom List Item Widget to Display Step
-
-**Release 0.8.0**
-- Implement functionality behind HTTP Client
-
-**Release 0.9.0** 
-- Implement functionality behind SQL Client
+- 0.7.0 - Implement functionality behind HTTP Client
+- 0.8.0 - Implement functionality behind SQL Client
+- 0.9.0 - Using Variables in Steps
+- 0.9.0 - Hide/Disable "Add New" button if no environments present 
+- 1.0.0 - Release Prep
 
 **Outstanding Tasks**
 
-- Using Variables in Steps
 - Prepare setup for Mac Release
  -- Icon
  -- WebPage on DeskRiders
