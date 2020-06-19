@@ -30,6 +30,10 @@ class EnvironmentController:
             self.save_variables_in_cache(previously_selected_environment)
 
         self.parent.clear_variables()
+
+        if self.environment_is_none(self.selected_environment):
+            return
+
         self.load_variables_from_cache(self.selected_environment)
 
     def save_variables_in_cache(self, environment):
@@ -75,7 +79,16 @@ class EnvironmentController:
         self.parent.show()
 
     def update_environment_cache(self, environment_name, variables):
+        if self.environment_is_none(environment_name):
+            return
+
         self._environments_cache[environment_name] = variables
 
     def remove_environment_from_cache(self, environment_name):
+        if self.environment_is_none(environment_name):
+            return
+
         del self._environments_cache[environment_name]
+
+    def environment_is_none(self, environment_name):
+        return environment_name is None or environment_name == "None"

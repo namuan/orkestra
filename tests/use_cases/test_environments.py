@@ -56,6 +56,15 @@ def test_adding_removing_env(qtbot):
     # remove
     remove_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
+    # and close dialog
+    close_and_save_environments(qtbot, window)
+
+    # and re-open
+    window.environment_view.show_dialog()
+
+    # check environments in toolbar
+    assert get_toolbar_environments_combo(window).count() == 0
+
     # then
     assert window.environment_view.lst_environments.count() == 0
 
