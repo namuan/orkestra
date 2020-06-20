@@ -3,10 +3,18 @@ from app.widgets.sql_step_widget import SqlStepWidget
 from . import get_main_window
 
 
-def test_switching_steps(qtbot):
-    # given
+def show_window(qtbot, clear_steps=True):
     window = get_main_window()
     qtbot.addWidget(window)
+    if clear_steps:
+        window.world.step_store.delete_all_steps()
+
+    return window
+
+
+def test_switching_steps(qtbot):
+    # given
+    window = show_window(qtbot)
     window.toolbar_controller.trigger_add_step_command("HTTP")
     window.toolbar_controller.trigger_add_step_command("SQL")
 
@@ -26,3 +34,7 @@ def test_switching_steps(qtbot):
     # # then
     assert type(window.stackedWidget.currentWidget()) == SqlStepWidget, \
         "Should switch to SqlStepWidget"
+
+
+def test_default_step_if_all_steps_are_deleted(qtbot):
+    pass

@@ -56,8 +56,11 @@ class StepStore(BaseStore):
     def get_step(self, step_id):
         logging.info("Get Step: {}".format(step_id))
         table = self.ds.table_for(STEP_RECORD_TYPE)
-        obj_db = table.find_one(name=STEP_RECORD_TYPE, step_id=step_id)
-        return StepEntity.from_json_str(obj_db["object"])
+        step_db = table.find_one(name=STEP_RECORD_TYPE, step_id=step_id)
+        # if not step_db:
+        #     return None
+
+        return StepEntity.from_json_str(step_db["object"])
 
     def get_steps(self):
         logging.info("Get All Steps")
@@ -68,8 +71,14 @@ class StepStore(BaseStore):
             for step_db in steps_db
         }
 
-    def clear_all_steps(self):
+    def delete_all_steps(self):
         logging.info("Delete All Steps")
         table = self.ds.table_for(STEP_RECORD_TYPE)
         table.delete(name=STEP_RECORD_TYPE)
         self.ds.events.steps_deleted.emit()
+
+    def delete_single_step(self, step_id):
+        logging.info("Delete Step: {}".format(step_id))
+        table = self.ds.table_for(STEP_RECORD_TYPE)
+        table.delete(step_id=step_id)
+        self.ds.events.step_deleted.emit(step_id)

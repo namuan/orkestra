@@ -81,6 +81,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def replace_step(self, new_step):
         logging.info("Switching Layout to {}".format(new_step))
+        # if not new_step:
+        #     self.stackedWidget.setCurrentIndex(0)
         if new_step.step_type == StepType.HTTP:
             self.stackedWidget.setCurrentWidget(self.http_step_widget)
         elif new_step.step_type == StepType.SQL:

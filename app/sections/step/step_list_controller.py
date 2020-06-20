@@ -14,6 +14,8 @@ class StepListController:
         steps = self.world.step_store.get_steps()
         self.parent.clear_steps()
         self.parent.update_steps(steps)
+        if (len(steps) > 0):
+            self.parent.select_step_at(position=0)
 
     def on_step_added(self, step_id):
         step = self.world.step_store.get_step(step_id)
@@ -21,3 +23,6 @@ class StepListController:
 
     def trigger_step_selected(self, selected_step_id):
         self.world.app_state_store.update_selected_step(selected_step_id)
+
+    def delete_step(self, step_entity):
+        self.world.step_store.delete_single_step(step_entity.id)
