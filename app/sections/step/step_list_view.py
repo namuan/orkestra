@@ -22,6 +22,10 @@ class StepListView:
         # ui events
         self.lst_steps.selectionModel().currentChanged.connect(self.on_step_selected)
 
+    def update_steps(self, steps):
+        for step_id, step in steps.items():
+            self.add_step_widget(step)
+
     def add_step_widget(self, step: StepEntity):
         logging.info("Adding a new widget for {}".format(step))
         step_item = QStandardItem("({}) {}".format(step.step_type.value, step.title))
