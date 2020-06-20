@@ -21,10 +21,22 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QSplitter" name="splitter">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QFrame" name="stepsFrame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -47,6 +59,12 @@
         </layout>
        </widget>
        <widget class="QFrame" name="detailsFrame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -75,43 +93,73 @@
             <number>0</number>
            </property>
            <widget class="QWidget" name="page">
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <spacer name="verticalSpacer">
+              <spacer name="horizontalSpacer_2">
                <property name="orientation">
-                <enum>Qt::Vertical</enum>
+                <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>20</width>
-                 <height>40</height>
+                 <width>143</width>
+                 <height>20</height>
                 </size>
                </property>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_new_http_request">
-               <property name="text">
-                <string>New HTTP Request</string>
-               </property>
-              </widget>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <spacer name="verticalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_new_http_request">
+                 <property name="text">
+                  <string>New HTTP Request</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_new_sql_request">
+                 <property name="text">
+                  <string>New SQL Request</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_new_sql_request">
-               <property name="text">
-                <string>New SQL Request</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_2">
+              <spacer name="horizontalSpacer">
                <property name="orientation">
-                <enum>Qt::Vertical</enum>
+                <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>20</width>
-                 <height>40</height>
+                 <width>142</width>
+                 <height>20</height>
                 </size>
                </property>
               </spacer>
