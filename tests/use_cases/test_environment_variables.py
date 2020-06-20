@@ -70,6 +70,13 @@ def select_environment(window, position):
     return window.environment_view.lst_environments.currentItem().text()
 
 
+def set_environment_variables(qtbot, window, selected_env):
+    selected_environment_name = select_environment(window, position=selected_env.get('position'))
+    for i in range(len(selected_env.get('data'))):
+        add_environment_variable(qtbot, window, *selected_env.get('data')[i], position=i)
+    return selected_environment_name
+
+
 def get_variables_for_selected_environment(window):
     item_count = get_key_value_list(window).count()
     return [
@@ -108,13 +115,6 @@ def test_delete_environment_variables_row(qtbot):
 
     # then number of items in list should be 1
     assert get_key_value_list(window).count() == 1
-
-
-def set_environment_variables(qtbot, window, selected_env):
-    selected_environment_name = select_environment(window, position=selected_env.get('position'))
-    for i in range(len(selected_env.get('data'))):
-        add_environment_variable(qtbot, window, *selected_env.get('data')[i], position=i)
-    return selected_environment_name
 
 
 def test_save_data_when_switching_between_environments(qtbot):

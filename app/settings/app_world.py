@@ -12,7 +12,7 @@ from app.data.data_store import DataStore
 from app.sections.configuration.app_config import AppConfig
 from app.sections.environment.environment_store import EnvironmentStore
 from app.sections.folder import FolderStore
-from app.sections.step import StepStore
+from app.sections.step.step_store import StepStore
 
 
 class AppWorld:

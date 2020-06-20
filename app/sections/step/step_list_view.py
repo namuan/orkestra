@@ -5,6 +5,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QListView
 
 from app.core.constants import STEP_LIST_OBJECT_ROLE, STEP_LIST_ID_ROLE
+from app.widgets.steps_list_widget import StepItemDelegate
 from .step_list_controller import StepListController
 from .step_store import StepEntity
 
@@ -18,6 +19,7 @@ class StepListView:
         # setup model
         self.model = QStandardItemModel()
         self.lst_steps.setModel(self.model)
+        self.lst_steps.setItemDelegate(StepItemDelegate())
 
         # ui events
         self.lst_steps.selectionModel().currentChanged.connect(self.on_step_selected)

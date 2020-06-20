@@ -37,7 +37,7 @@ class Ui_MainWindow(object):
         self.txt_search_steps = QtWidgets.QLineEdit(self.stepsFrame)
         self.txt_search_steps.setObjectName("txt_search_steps")
         self.verticalLayout_2.addWidget(self.txt_search_steps)
-        self.lst_steps = QtWidgets.QListView(self.stepsFrame)
+        self.lst_steps = CustomStepsListView(self.stepsFrame)
         self.lst_steps.setObjectName("lst_steps")
         self.verticalLayout_2.addWidget(self.lst_steps)
         self.detailsFrame = QtWidgets.QFrame(self.splitter)
@@ -91,3 +91,6 @@ class Ui_MainWindow(object):
         self.btn_new_http_request.setText(_translate("MainWindow", "New HTTP Request"))
         self.btn_new_sql_request.setText(_translate("MainWindow", "New SQL Request"))
         self.label_2.setText(_translate("MainWindow", "Notes"))
+
+
+from app.widgets.steps_list_widget import CustomStepsListView

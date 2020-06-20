@@ -12,7 +12,8 @@ from app.sections.environment import EnvironmentView
 from app.sections.folder import FoldersView
 from app.sections.scratchpad import ScratchPadController
 from app.sections.shortcut import ShortcutController
-from app.sections.step import StepListView, StepSwitcherController
+from app.sections.step.step_list_view import StepListView
+from app.sections.step.step_switcher_controller import StepSwitcherController
 from app.sections.toolbar import ToolbarController
 from app.sections.toolbar.environment_list_view import EnvironmentListView
 from app.settings.app_world import AppWorld
