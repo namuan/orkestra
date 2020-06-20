@@ -106,19 +106,11 @@ class Ui_HttpStepWidget(object):
         _translate = QtCore.QCoreApplication.translate
         HttpStepWidget.setWindowTitle(_translate("HttpStepWidget", "Form"))
         self.btn_send_request.setText(_translate("HttpStepWidget", "Send"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.description),
-                                             _translate("HttpStepWidget", "Description"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.header_params),
-                                             _translate("HttpStepWidget", "Headers"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.query_params),
-                                             _translate("HttpStepWidget", "Query Params"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.form_params),
-                                             _translate("HttpStepWidget", "Form Params"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.request_body),
-                                             _translate("HttpStepWidget", "Request Body"))
-        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_request),
-                                              _translate("HttpStepWidget", "Raw Request"))
-        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_response),
-                                              _translate("HttpStepWidget", "Raw Response"))
-        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.formatted_response),
-                                              _translate("HttpStepWidget", "Formatted Response"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.description), _translate("HttpStepWidget", "Description"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.header_params), _translate("HttpStepWidget", "Headers"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.query_params), _translate("HttpStepWidget", "Query Params"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.form_params), _translate("HttpStepWidget", "Form Params"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.request_body), _translate("HttpStepWidget", "Request Body"))
+        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_request), _translate("HttpStepWidget", "Raw Request"))
+        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_response), _translate("HttpStepWidget", "Raw Response"))
+        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.formatted_response), _translate("HttpStepWidget", "Formatted Response"))

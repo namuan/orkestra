@@ -84,7 +84,7 @@ class Ui_EnvironmentsDialog(object):
         spacerItem1 = QtWidgets.QSpacerItem(287, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
         self.btn_dialog_close = QtWidgets.QDialogButtonBox(self.env_header_frame)
-        self.btn_dialog_close.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
+        self.btn_dialog_close.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.btn_dialog_close.setObjectName("btn_dialog_close")
         self.horizontalLayout.addWidget(self.btn_dialog_close)
         self.verticalLayout.addWidget(self.env_header_frame)

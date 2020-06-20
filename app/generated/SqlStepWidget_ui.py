@@ -106,11 +106,8 @@ class Ui_SqlStepWidget(object):
         _translate = QtCore.QCoreApplication.translate
         SqlStepWidget.setWindowTitle(_translate("SqlStepWidget", "Form"))
         self.btn_db_connect.setText(_translate("SqlStepWidget", "Connect"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.description),
-                                             _translate("SqlStepWidget", "Description"))
-        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.sql_query),
-                                             _translate("SqlStepWidget", "Query"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.description), _translate("SqlStepWidget", "Description"))
+        self.tab_request_elements.setTabText(self.tab_request_elements.indexOf(self.sql_query), _translate("SqlStepWidget", "Query"))
         self.label.setText(_translate("SqlStepWidget", "Jump to page"))
         self.lbl_total_pages.setText(_translate("SqlStepWidget", "of 20"))
-        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_request),
-                                              _translate("SqlStepWidget", "Results"))
+        self.tab_response_elements.setTabText(self.tab_response_elements.indexOf(self.raw_request), _translate("SqlStepWidget", "Results"))
