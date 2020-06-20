@@ -17,12 +17,12 @@ def test_switching_steps(qtbot):
     window.lst_steps.setCurrentIndex(first_idx)
 
     # then
-    assert HttpStepWidget in [type(t) for t in window.detailsFrame.children()], \
+    assert type(window.stackedWidget.currentWidget()) == HttpStepWidget, \
         "Should switch to HttpStepWidget"
 
     # and
     window.lst_steps.setCurrentIndex(second_idx)
 
-    # then
-    assert SqlStepWidget in [type(t) for t in window.detailsFrame.children()], \
+    # # then
+    assert type(window.stackedWidget.currentWidget()) == SqlStepWidget, \
         "Should switch to SqlStepWidget"

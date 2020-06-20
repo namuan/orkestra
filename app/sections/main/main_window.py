@@ -5,6 +5,7 @@ import sys
 from PyQt5.QtGui import QCloseEvent
 from PyQt5.QtWidgets import QMainWindow, qApp
 
+from app.core.step_types import StepType
 from app.generated.MainWindow_ui import Ui_MainWindow
 from app.sections.configuration import ConfigurationDialog
 from app.sections.environment import EnvironmentView
@@ -13,9 +14,11 @@ from app.sections.scratchpad import ScratchPadController
 from app.sections.shortcut import ShortcutController
 from app.sections.step import StepListView, StepSwitcherController
 from app.sections.toolbar import ToolbarController
+from app.sections.toolbar.environment_list_view import EnvironmentListView
 from app.settings.app_world import AppWorld
+from app.widgets.http_step_widget import HttpStepWidget
+from app.widgets.sql_step_widget import SqlStepWidget
 from .main_controller import MainWindowController
-from ..toolbar.environment_list_view import EnvironmentListView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -46,10 +49,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.toolbar_controller.init_items()
         self.shortcut_controller.init_items()
 
+        # Initialise stacks
+        self.http_step_widget = HttpStepWidget()
+        self.sql_step_widget = SqlStepWidget()
+
+        self.stackedWidget.addWidget(self.http_step_widget)
+        self.stackedWidget.addWidget(self.sql_step_widget)
+
         # Initialise Sub-Systems
         sys.excepthook = MainWindow.log_uncaught_exceptions
 
-    # Main Window events
+        # Main Window events
+
     def resizeEvent(self, event):
         self.main_controller.after_window_loaded()
 
@@ -67,13 +78,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except:
             pass
 
-    def replace_widget(self, selected_widget):
-        logging.info("Switching Layout for {}".format(selected_widget))
-        self.clear_layout(self.toolWidgetLayout)
-        self.toolWidgetLayout.addWidget(selected_widget)
-
-    def clear_layout(self, layout):
-        for i in reversed(range(layout.count())):
-            widget_item = layout.takeAt(i)
-            if widget_item:
-                widget_item.widget().deleteLater()
+    def replace_step(self, new_step):
+        logging.info("Switching Layout to {}".format(new_step))
+        if new_step.step_type == StepType.HTTP:
+            self.stackedWidget.setCurrentWidget(self.http_step_widget)
+        elif new_step.step_type == StepType.SQL:
+            self.stackedWidget.setCurrentWidget(self.sql_step_widget)

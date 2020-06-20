@@ -1,8 +1,3 @@
-from app.core.step_types import StepType
-from app.widgets.http_step_widget import HttpStepWidget
-from app.widgets.sql_step_widget import SqlStepWidget
-
-
 class StepSwitcherController:
     def __init__(self, main_window):
         self.main_window = main_window
@@ -15,9 +10,4 @@ class StepSwitcherController:
 
     def on_step_selection_changed(self, selected_step_id):
         step = self.world.step_store.get_step(selected_step_id)
-        if step.step_type == StepType.HTTP:
-            step_widget = HttpStepWidget(self.main_window.detailsFrame)
-        elif step.step_type == StepType.SQL:
-            step_widget = SqlStepWidget(self.main_window.detailsFrame)
-
-        self.main_window.replace_widget(step_widget)
+        self.main_window.replace_step(step)

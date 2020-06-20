@@ -14,116 +14,115 @@
    <string>Orkestra</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QSplitter" name="splitter_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>1</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <widget class="QSplitter" name="splitter">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <widget class="QFrame" name="stepsFrame">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="spacing">
-          <number>0</number>
-         </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+              <widget class="QSplitter" name="splitter_2">
+                  <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                  </property>
+                  <widget class="QSplitter" name="splitter">
+                      <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                      </property>
+                      <widget class="QFrame" name="stepsFrame">
+                          <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_2">
+                              <property name="spacing">
+                                  <number>0</number>
+                              </property>
          <item>
-          <widget class="QComboBox" name="cmb_folders"/>
+             <widget class="QComboBox" name="cmb_folders"/>
          </item>
-         <item>
-          <widget class="QLineEdit" name="txt_search_steps"/>
-         </item>
-         <item>
-          <widget class="QListView" name="lst_steps"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QFrame" name="detailsFrame">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="toolWidgetLayout">
-         <item>
-          <widget class="QSplitter" name="splitter_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <widget class="QFrame" name="requestFrame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <widget class="QLabel" name="label">
-             <property name="geometry">
-              <rect>
-               <x>150</x>
-               <y>110</y>
-               <width>121</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>requestPane</string>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QFrame" name="responseFrame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <widget class="QLabel" name="label_3">
-             <property name="geometry">
-              <rect>
-               <x>140</x>
-               <y>100</y>
-               <width>101</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>responsePane</string>
-             </property>
-            </widget>
-           </widget>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+                              <item>
+                                  <widget class="QLineEdit" name="txt_search_steps"/>
+                              </item>
+                              <item>
+                                  <widget class="QListView" name="lst_steps"/>
+                              </item>
+                          </layout>
+                      </widget>
+                      <widget class="QFrame" name="detailsFrame">
+                          <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QHBoxLayout" name="horizontalLayout">
+                              <property name="leftMargin">
+                                  <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                                  <number>0</number>
+                              </property>
+                              <property name="rightMargin">
+                                  <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                                  <number>0</number>
+                              </property>
+                              <item>
+                                  <widget class="QStackedWidget" name="stackedWidget">
+                                      <property name="frameShape">
+                                          <enum>QFrame::NoFrame</enum>
+                                      </property>
+                                      <property name="currentIndex">
+                                          <number>0</number>
+                                      </property>
+                                      <widget class="QWidget" name="page">
+                                          <layout class="QVBoxLayout" name="verticalLayout_3">
+                                              <item>
+                                                  <spacer name="verticalSpacer">
+                                                      <property name="orientation">
+                                                          <enum>Qt::Vertical</enum>
+                                                      </property>
+                                                      <property name="sizeHint" stdset="0">
+                                                          <size>
+                                                              <width>20</width>
+                                                              <height>40</height>
+                                                          </size>
+                                                      </property>
+                                                  </spacer>
+                                              </item>
+                                              <item>
+                                                  <widget class="QPushButton" name="btn_new_http_request">
+                                                      <property name="text">
+                                                          <string>New HTTP Request</string>
+                                                      </property>
+                                                  </widget>
+                                              </item>
+                                              <item>
+                                                  <widget class="QPushButton" name="btn_new_sql_request">
+                                                      <property name="text">
+                                                          <string>New SQL Request</string>
+                                                      </property>
+                                                  </widget>
+                                              </item>
+                                              <item>
+                                                  <spacer name="verticalSpacer_2">
+                                                      <property name="orientation">
+                                                          <enum>Qt::Vertical</enum>
+                                                      </property>
+                                                      <property name="sizeHint" stdset="0">
+                                                          <size>
+                                                              <width>20</width>
+                                                              <height>40</height>
+                                                          </size>
+                                                      </property>
+                                                  </spacer>
+                                              </item>
+                                          </layout>
+                                      </widget>
+                                  </widget>
+                              </item>
+                          </layout>
+                      </widget>
+                  </widget>
       <widget class="QFrame" name="notesFrame">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
