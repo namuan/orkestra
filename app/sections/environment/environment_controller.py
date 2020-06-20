@@ -46,7 +46,9 @@ class EnvironmentController:
 
     def trigger_current_item_changed(self, list_item):
         changed_environment_name = list_item.text()
-        self._environments_cache[changed_environment_name] = self._environments_cache.pop(self.selected_environment)
+        self._environments_cache[
+            changed_environment_name
+        ] = self._environments_cache.pop(self.selected_environment)
         self.selected_environment = changed_environment_name
 
     def trigger_add_environment(self):

@@ -26,7 +26,9 @@ class EnvironmentStore(BaseStore):
 
     def upsert_environments(self, environments):
         environment_entity = EnvironmentEntity(
-            environments=[Environment(name=k, variables=v) for k, v in environments.items()]
+            environments=[
+                Environment(name=k, variables=v) for k, v in environments.items()
+            ]
         )
         table = self.ds.table_for(environment_entity.record_type)
         table.upsert(

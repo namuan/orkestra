@@ -19,7 +19,11 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
         return self.lst_environments.currentItem()
 
     def selected_environment_name(self):
-        return self.currently_selected_item().text() if self.currently_selected_item() else None
+        return (
+            self.currently_selected_item().text()
+            if self.currently_selected_item()
+            else None
+        )
 
     def environments(self):
         return [

@@ -42,13 +42,14 @@ class StepItemDelegate(QStyledItemDelegate):
             0, 0, bounding_rect.width(), 0, Qt.AlignLeft | Qt.AlignTop, step_description
         )
         size: QSize = QSize(
-            option.rect.width(), title_rect.height() + description_rect.height() + 10 * PADDING
+            option.rect.width(),
+            title_rect.height() + description_rect.height() + 10 * PADDING,
         )
 
         return size
 
     def paint(
-            self, painter: QPainter, option: QStyleOptionViewItem, model_index: QModelIndex
+        self, painter: QPainter, option: QStyleOptionViewItem, model_index: QModelIndex
     ):
         if not model_index.isValid():
             return
@@ -98,7 +99,9 @@ class StepItemDelegate(QStyledItemDelegate):
             elided_description,
         )
         painter.drawText(
-            description_rect, Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap, elided_description
+            description_rect,
+            Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap,
+            elided_description,
         )
 
         painter.restore()

@@ -45,8 +45,10 @@ class KeyValueListWidget(QtWidgets.QWidget, Ui_KeyValueListWidget):
     def items(self):
         item_count = self.key_value_item_list.count()
         return {
-            item_key: item_value.value for item_key, item_value in
-            [self.item_widget(i).get_data() for i in range(item_count - 1)]
+            item_key: item_value.value
+            for item_key, item_value in [
+                self.item_widget(i).get_data() for i in range(item_count - 1)
+            ]
         }
 
     def item_widget(self, position):
