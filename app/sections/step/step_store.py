@@ -57,8 +57,8 @@ class StepStore(BaseStore):
         logging.info("Get Step: {}".format(step_id))
         table = self.ds.table_for(STEP_RECORD_TYPE)
         step_db = table.find_one(name=STEP_RECORD_TYPE, step_id=step_id)
-        # if not step_db:
-        #     return None
+        if not step_db:
+            return None
 
         return StepEntity.from_json_str(step_db["object"])
 

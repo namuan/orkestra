@@ -37,4 +37,12 @@ def test_switching_steps(qtbot):
 
 
 def test_default_step_if_all_steps_are_deleted(qtbot):
-    pass
+    # given
+    window = show_window(qtbot)
+    window.toolbar_controller.trigger_add_step_command("HTTP")
+
+    # when (delete selected step)
+    window.step_list_view.on_delete_selected_item()
+
+    # then (should display default stack page)
+    assert window.stackedWidget.currentIndex() == 0
