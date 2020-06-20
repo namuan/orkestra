@@ -19,6 +19,7 @@ from app.sections.toolbar.environment_list_view import EnvironmentListView
 from app.settings.app_world import AppWorld
 from app.widgets.http_step_widget import HttpStepWidget
 from app.widgets.sql_step_widget import SqlStepWidget
+from .default_page_controller import DefaultPageController
 from .main_controller import MainWindowController
 
 
@@ -38,6 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shortcut_controller = ShortcutController(self)
         self.scratch_pad_controller = ScratchPadController(self)
         self.step_switcher_controller = StepSwitcherController(self)
+        self.default_page_controller = DefaultPageController(self)
 
         # Initialise Sub-Views
         self.config_view = ConfigurationDialog(self)
@@ -49,6 +51,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Initialise components
         self.toolbar_controller.init_items()
         self.shortcut_controller.init_items()
+
 
         # Initialise stacks
         self.http_step_widget = HttpStepWidget()

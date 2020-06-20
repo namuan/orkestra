@@ -10,13 +10,17 @@ def show_window(qtbot, clear_steps=True):
     return window
 
 
+def add_step(window, step_name):
+    window.default_page_controller.trigger_add_step_command(step_name)
+
+
 def test_add_new_steps(qtbot):
     # given
     window = show_window(qtbot)
 
     # when
-    window.toolbar_controller.trigger_add_step_command("HTTP")
-    window.toolbar_controller.trigger_add_step_command("SQL")
+    add_step(window, "HTTP")
+    add_step(window, "SQL")
 
     # then
     assert window.lst_steps.model().rowCount() == 2, \
@@ -28,8 +32,8 @@ def test_save_new_steps_in_database(qtbot):
     window = show_window(qtbot)
 
     # when
-    window.toolbar_controller.trigger_add_step_command("HTTP")
-    window.toolbar_controller.trigger_add_step_command("SQL")
+    add_step(window, "HTTP")
+    add_step(window, "SQL")
 
     # then
     steps = window.world.step_store.get_steps()
@@ -41,8 +45,8 @@ def test_load_steps_from_database(qtbot):
     window = show_window(qtbot)
 
     # and (add few steps)
-    window.toolbar_controller.trigger_add_step_command("HTTP")
-    window.toolbar_controller.trigger_add_step_command("SQL")
+    add_step(window, "HTTP")
+    add_step(window, "SQL")
 
     # when (quit application)
     window.toolbar_controller.trigger_quit_application()
@@ -60,8 +64,8 @@ def test_delete_step(qtbot):
     window = show_window(qtbot)
 
     # and (add few steps)
-    window.toolbar_controller.trigger_add_step_command("HTTP")
-    window.toolbar_controller.trigger_add_step_command("SQL")
+    add_step(window, "HTTP")
+    add_step(window, "SQL")
 
     # and (select one step)
     selected_item_index = window.step_list_view.model.item(1)

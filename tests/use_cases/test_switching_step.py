@@ -12,11 +12,15 @@ def show_window(qtbot, clear_steps=True):
     return window
 
 
+def add_step(window, step_name):
+    window.default_page_controller.trigger_add_step_command(step_name)
+
+
 def test_switching_steps(qtbot):
     # given
     window = show_window(qtbot)
-    window.toolbar_controller.trigger_add_step_command("HTTP")
-    window.toolbar_controller.trigger_add_step_command("SQL")
+    add_step(window, "HTTP")
+    add_step(window, "SQL")
 
     first_idx = window.lst_steps.model().index(0, 0)
     second_idx = window.lst_steps.model().index(1, 0)
@@ -39,7 +43,7 @@ def test_switching_steps(qtbot):
 def test_default_step_if_all_steps_are_deleted(qtbot):
     # given
     window = show_window(qtbot)
-    window.toolbar_controller.trigger_add_step_command("HTTP")
+    add_step(window, "HTTP")
 
     # when (delete selected step)
     window.step_list_view.on_delete_selected_item()
