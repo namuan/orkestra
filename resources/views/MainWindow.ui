@@ -54,7 +54,14 @@
           <widget class="QLineEdit" name="txt_search_steps"/>
          </item>
          <item>
-          <widget class="CustomStepsListView" name="lst_steps"/>
+          <widget class="CustomStepsListView" name="lst_steps">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::ExtendedSelection</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

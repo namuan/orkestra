@@ -14,7 +14,7 @@ class StepListController:
         steps = self.world.step_store.get_steps()
         self.parent.clear_steps()
         self.parent.update_steps(steps)
-        if (len(steps) > 0):
+        if len(steps) > 0:
             self.parent.select_step_at(position=0)
 
     def on_step_added(self, step_id):

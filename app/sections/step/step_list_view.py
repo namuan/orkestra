@@ -33,26 +33,26 @@ class StepListView:
         self.lst_steps.setContextMenuPolicy(Qt.CustomContextMenu)
         self.lst_steps.customContextMenuRequested.connect(self.on_display_context_menu)
 
-    def index_at_selected_row(self):
+    def indexes_for_selected_rows(self):
         selected_model: QItemSelectionModel = self.lst_steps.selectionModel()
         if not selected_model.hasSelection():
             return None
-        return selected_model.currentIndex()
+
+        return selected_model.selectedIndexes()
 
     def on_delete_selected_item(self):
-        selected_model_index: QModelIndex = self.index_at_selected_row()
-        if not selected_model_index:
+        selected_model_indexes = self.indexes_for_selected_rows()
+        if not selected_model_indexes:
             return
 
-        row_to_remove = selected_model_index.row()
-        step_entity: StepEntity = selected_model_index.data(STEP_LIST_OBJECT_ROLE)
+        for items in reversed(sorted(selected_model_indexes)):
+            step_entity: StepEntity = items.data(STEP_LIST_OBJECT_ROLE)
+            self.controller.delete_step(step_entity)
+            self.model.takeRow(items.row())
 
-        self.controller.delete_step(step_entity)
-
-        self.model.removeRow(row_to_remove)
-        previous_row = row_to_remove - 1
-        if previous_row >= 0:
-            previous_item: QStandardItem = self.model.item(previous_row)
+        before_first_row_to_delete = selected_model_indexes[0].row() - 1
+        if before_first_row_to_delete >= 0:
+            previous_item: QStandardItem = self.model.item(before_first_row_to_delete)
             self.lst_steps.setCurrentIndex(previous_item.index())
 
     def on_display_context_menu(self, position):
