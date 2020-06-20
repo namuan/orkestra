@@ -29,14 +29,22 @@ class StepListView:
 
     def update_steps(self, steps):
         for step_id, step in steps.items():
-            self.add_step_widget(step)
+            self.add_step_widget(step, select_item=False)
 
-    def add_step_widget(self, step: StepEntity):
+        if len(steps) > 0:
+            first_item: QStandardItem = self.model.item(0)
+            self.lst_steps.setCurrentIndex(first_item.index())
+
+    def add_step_widget(self, step: StepEntity, select_item=True):
         logging.info("Adding a new widget for {}".format(step))
         step_item = QStandardItem("({}) {}".format(step.step_type.value, step.title))
         step_item.setData(step, STEP_LIST_OBJECT_ROLE)
         step_item.setData(QVariant(step.id), STEP_LIST_ID_ROLE)
         self.model.appendRow(step_item)
+
+        if select_item:
+            index = self.model.indexFromItem(step_item)
+            self.lst_steps.setCurrentIndex(index)
 
     def on_step_selected(self, current: QModelIndex):
         if not current:
