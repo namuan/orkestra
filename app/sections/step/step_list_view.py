@@ -24,6 +24,9 @@ class StepListView:
         # ui events
         self.lst_steps.selectionModel().currentChanged.connect(self.on_step_selected)
 
+    def clear_steps(self):
+        self.model.clear()
+
     def update_steps(self, steps):
         for step_id, step in steps.items():
             self.add_step_widget(step)

@@ -8,7 +8,6 @@ from app.core.uuid_utils import gen_uuid
 from app.data import BaseEntity, BaseStore
 
 STEP_RECORD_TYPE = "steps"
-DEFAULT_TITLE = "Change this"
 
 
 def default_title(step_type: StepType):
@@ -73,3 +72,4 @@ class StepStore(BaseStore):
         logging.info("Delete All Steps")
         table = self.ds.table_for(STEP_RECORD_TYPE)
         table.delete(name=STEP_RECORD_TYPE)
+        self.ds.events.steps_deleted.emit()

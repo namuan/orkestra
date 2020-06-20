@@ -8,9 +8,11 @@ class StepListController:
 
         # domain events
         self.world.data.events.step_added.connect(self.on_step_added)
+        self.world.data.events.steps_deleted.connect(self.on_repopulate_steps)
 
     def on_repopulate_steps(self):
         steps = self.world.step_store.get_steps()
+        self.parent.clear_steps()
         self.parent.update_steps(steps)
 
     def on_step_added(self, step_id):
