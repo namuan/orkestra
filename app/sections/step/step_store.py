@@ -59,3 +59,17 @@ class StepStore(BaseStore):
         table = self.ds.table_for(STEP_RECORD_TYPE)
         obj_db = table.find_one(name=STEP_RECORD_TYPE, step_id=step_id)
         return StepEntity.from_json_str(obj_db["object"])
+
+    def get_steps(self):
+        logging.info("Get All Steps")
+        table = self.ds.table_for(STEP_RECORD_TYPE)
+        steps_db = table.find(name=STEP_RECORD_TYPE)
+        return {
+            step_db["step_id"]: StepEntity.from_json_str(step_db["object"])
+            for step_db in steps_db
+        }
+
+    def clear_all_steps(self):
+        logging.info("Delete All Steps")
+        table = self.ds.table_for(STEP_RECORD_TYPE)
+        table.delete(name=STEP_RECORD_TYPE)
