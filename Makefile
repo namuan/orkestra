@@ -53,7 +53,7 @@ run: ## Runs the application
 
 test: ## Run all unit tests
 	rm -vf $$HOME/Library/Preferences/Python/orkestra.db
-	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest tests
+	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest -v
 
 runapp: ## Runs the packaged application
 	./dist/Orkestra.app/Contents/MacOS/app
