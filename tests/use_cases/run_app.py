@@ -1,7 +1,9 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialogButtonBox, QListWidgetItem
 
+from app.commands.add_step_command import AddStepCommand
 from app.core.faker_config import fake
+from app.core.step_types import StepType
 from . import get_main_window, interact
 
 
@@ -27,6 +29,11 @@ def close_and_save_environments(qtbot, window):
 
 def add_step(window, step_name):
     window.default_page_controller.trigger_add_step_command(step_name)
+
+
+def add_step_with_command(window, step_name, step_title):
+    add_step_command = AddStepCommand(step_type=StepType[step_name], step_title=step_title)
+    window.world.step_store.add_step(add_step_command)
 
 
 def get_key_value_list(window):
@@ -77,8 +84,8 @@ def test_app_with_prepopulated_data(qtbot):
     set_environment_variables(qtbot, window, selected_env)
 
     # add some steps
-    for i in range(10):
-        add_step(window, "HTTP")
-        add_step(window, "SQL")
+    for i in range(4):
+        add_step_with_command(window, "HTTP", f" {i} - GET Request")
+        # add_step_with_command(window, "SQL", f" {i} - SELECT Request")
 
     interact(qtbot)

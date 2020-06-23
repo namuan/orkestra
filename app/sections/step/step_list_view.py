@@ -2,7 +2,7 @@ import logging
 
 from PyQt5.QtCore import Qt, QModelIndex, QVariant, QItemSelectionModel
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QListView, QMenu, QAction
+from PyQt5.QtWidgets import QMenu, QAction
 
 from app.core.constants import STEP_LIST_OBJECT_ROLE, STEP_LIST_ID_ROLE
 from app.widgets.steps_list_widget import StepItemDelegate
@@ -13,7 +13,7 @@ from .step_store import StepEntity
 class StepListView:
     def __init__(self, main_window):
         self.main_window = main_window
-        self.lst_steps: QListView = self.main_window.lst_steps
+        self.lst_steps = self.main_window.lst_steps
         self.controller = StepListController(self, self.main_window.world)
 
         # menu
@@ -32,6 +32,23 @@ class StepListView:
         self.lst_steps.selectionModel().currentChanged.connect(self.on_step_selected)
         self.lst_steps.setContextMenuPolicy(Qt.CustomContextMenu)
         self.lst_steps.customContextMenuRequested.connect(self.on_display_context_menu)
+        self.lst_steps.dropEventSignal.connect(self.on_drop_event)
+
+    def on_drop_event(self, model_index: QModelIndex):
+        # selected_model_indexes = self.indexes_for_selected_rows()
+        # for i in selected_model_indexes:
+        #     step_entity: StepEntity = i.data(STEP_LIST_OBJECT_ROLE)
+        #     print("==> DELETING: {}".format(step_entity))
+        #     self.model.removeRow(i.row())
+
+        steps = [self.model.item(n).data(STEP_LIST_OBJECT_ROLE) for n in range(self.model.rowCount())]
+        print("===> Resort")
+        for s in steps:
+            print(s.title)
+
+        #
+        # step_entity: StepEntity = model_index.data(STEP_LIST_OBJECT_ROLE)
+        # print("==> On Drop Event: {}".format(step_entity))
 
     def indexes_for_selected_rows(self):
         selected_model: QItemSelectionModel = self.lst_steps.selectionModel()
@@ -79,6 +96,8 @@ class StepListView:
         step_item = QStandardItem("({}) {}".format(step.step_type.value, step.title))
         step_item.setData(step, STEP_LIST_OBJECT_ROLE)
         step_item.setData(QVariant(step.id), STEP_LIST_ID_ROLE)
+        step_item.setDragEnabled(True)
+        step_item.setDropEnabled(False)
         self.model.appendRow(step_item)
 
         if select_item:

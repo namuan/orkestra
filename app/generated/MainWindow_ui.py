@@ -49,6 +49,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.txt_search_steps)
         self.lst_steps = CustomStepsListView(self.stepsFrame)
         self.lst_steps.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.lst_steps.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
+        self.lst_steps.setDefaultDropAction(QtCore.Qt.MoveAction)
         self.lst_steps.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.lst_steps.setObjectName("lst_steps")
         self.verticalLayout_2.addWidget(self.lst_steps)

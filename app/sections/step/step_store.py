@@ -36,7 +36,7 @@ class StepStore(BaseStore):
 
     def add_step(self, add_step_command: AddStepCommand):
         step_entity = StepEntity(
-            title=default_title(add_step_command.step_type),
+            title=add_step_command.step_title or default_title(add_step_command.step_type),
             description=default_description(),
             id=gen_uuid(),
             step_type=add_step_command.step_type,

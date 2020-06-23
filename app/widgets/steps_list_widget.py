@@ -160,7 +160,7 @@ class StepItemDelegate(QStyledItemDelegate):
 
 
 class CustomStepsListView(QListView):
-    drop_event_signal = pyqtSignal(QModelIndex)
+    dropEventSignal = pyqtSignal(QModelIndex)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -168,4 +168,4 @@ class CustomStepsListView(QListView):
     def dropEvent(self, e: QDropEvent):
         super().dropEvent(e)
         model_index = self.indexAt(e.pos())
-        self.drop_event_signal.emit(model_index)
+        self.dropEventSignal.emit(model_index)

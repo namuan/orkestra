@@ -55,8 +55,8 @@ test: ## Run all unit tests
 	rm -vf $$HOME/Library/Preferences/Python/orkestra.db
 	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest -v
 
-runapp: ## Runs the packaged application
-	./dist/Orkestra.app/Contents/MacOS/app
+testapp: ## Runs the packaged application
+	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest -v tests/use_cases/run_app.py
 
 icns: ## Generates icon files from svg
 	echo "Run ./mk-icns.sh resources/icons/app.svg app"
