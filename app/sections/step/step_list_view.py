@@ -1,11 +1,11 @@
 import logging
 
-from PyQt5.QtCore import Qt, QModelIndex, QVariant, QItemSelectionModel
+from PyQt5.QtCore import Qt, QModelIndex, QVariant
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMenu, QAction
 
 from app.core.constants import STEP_LIST_OBJECT_ROLE, STEP_LIST_ID_ROLE
-from app.widgets.steps_list_widget import StepItemDelegate
+from app.widgets.steps_list_widget import StepItemDelegate, CustomStepsListView
 from .step_list_controller import StepListController
 from .step_store import StepEntity
 
@@ -13,7 +13,7 @@ from .step_store import StepEntity
 class StepListView:
     def __init__(self, main_window):
         self.main_window = main_window
-        self.lst_steps = self.main_window.lst_steps
+        self.lst_steps: CustomStepsListView = self.main_window.lst_steps
         self.controller = StepListController(self, self.main_window.world)
 
         # menu
@@ -35,42 +35,45 @@ class StepListView:
         self.lst_steps.dropEventSignal.connect(self.on_drop_event)
 
     def on_drop_event(self, model_index: QModelIndex):
-        # selected_model_indexes = self.indexes_for_selected_rows()
-        # for i in selected_model_indexes:
-        #     step_entity: StepEntity = i.data(STEP_LIST_OBJECT_ROLE)
-        #     print("==> DELETING: {}".format(step_entity))
-        #     self.model.removeRow(i.row())
+        selected_model_indexes = self.lst_steps.selectedIndexes()
+        self.delete_steps_by_indexes(selected_model_indexes, delete_from_db=False)
+
+        mis = [self.model.index(n, 0) for n in range(self.model.rowCount())]
+        for mi in mis:
+            print("===> {}".format(mi.row()))
 
         steps = [self.model.item(n).data(STEP_LIST_OBJECT_ROLE) for n in range(self.model.rowCount())]
-        print("===> Resort")
-        for s in steps:
-            print(s.title)
+        # print("===> Resort")
+        # for s in steps:
+        #     print(s.title, s.id)
 
-        #
-        # step_entity: StepEntity = model_index.data(STEP_LIST_OBJECT_ROLE)
-        # print("==> On Drop Event: {}".format(step_entity))
+    def get_step_entity_at_index(self, model_index):
+        return model_index.data(STEP_LIST_OBJECT_ROLE)
+
+    def select_step_at_index(self, model_index):
+        self.lst_steps.setCurrentIndex(model_index)
 
     def indexes_for_selected_rows(self):
-        selected_model: QItemSelectionModel = self.lst_steps.selectionModel()
-        if not selected_model.hasSelection():
-            return None
+        return self.lst_steps.selectedIndexes()
 
-        return selected_model.selectedIndexes()
+    def delete_steps_by_indexes(self, model_indexes, delete_from_db=True):
+        for items in reversed(sorted(model_indexes)):
+            if delete_from_db:
+                step_entity: StepEntity = self.get_step_entity_at_index(items)
+                self.controller.delete_step(step_entity)
+            self.model.takeRow(items.row())
 
     def on_delete_selected_item(self):
         selected_model_indexes = self.indexes_for_selected_rows()
         if not selected_model_indexes:
             return
 
-        for items in reversed(sorted(selected_model_indexes)):
-            step_entity: StepEntity = items.data(STEP_LIST_OBJECT_ROLE)
-            self.controller.delete_step(step_entity)
-            self.model.takeRow(items.row())
+        self.delete_steps_by_indexes(selected_model_indexes)
 
         before_first_row_to_delete = selected_model_indexes[0].row() - 1
         if before_first_row_to_delete >= 0:
             previous_item: QStandardItem = self.model.item(before_first_row_to_delete)
-            self.lst_steps.setCurrentIndex(previous_item.index())
+            self.select_step_at_index(previous_item.index())
 
     def on_display_context_menu(self, position):
         index: QModelIndex = self.lst_steps.indexAt(position)
