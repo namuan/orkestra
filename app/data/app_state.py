@@ -3,9 +3,9 @@ from typing import Optional
 
 import attr
 
-from app.core.str_utils import plain_to_b64_str, b64_to_plain_str
 from app.data import BaseEntity, BaseStore
 from app.data.data_store import DataStore
+from app.utils.str_utils import plain_to_b64_str, b64_to_plain_str
 
 APP_STATE_RECORD_TYPE = "app_state"
 

@@ -1,4 +1,4 @@
-from app.core.random_utils import random_environment
+from app.utils.random_utils import random_environment
 
 
 class EnvironmentController:

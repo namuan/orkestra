@@ -1,4 +1,4 @@
-from app.core.str_utils import str_to_int
+from app.utils.str_utils import str_to_int
 
 
 def test_str_to_int():

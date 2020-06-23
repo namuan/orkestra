@@ -84,7 +84,7 @@ def test_app_with_prepopulated_data(qtbot):
     set_environment_variables(qtbot, window, selected_env)
 
     # add some steps
-    for i in range(4):
+    for i in range(5):
         add_step_with_command(window, "HTTP", f" {i} - GET Request")
         # add_step_with_command(window, "SQL", f" {i} - SELECT Request")
 

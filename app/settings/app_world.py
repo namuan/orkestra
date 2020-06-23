@@ -6,13 +6,13 @@ from typing import Any, Union
 from PyQt5.QtCore import QSettings, QStandardPaths
 from PyQt5.QtWidgets import qApp
 
-from app.core.str_utils import str_to_bool
 from app.data.app_state import AppStateStore
 from app.data.data_store import DataStore
 from app.sections.configuration.app_config import AppConfig
 from app.sections.environment.environment_store import EnvironmentStore
 from app.sections.folder import FolderStore
 from app.sections.step.step_store import StepStore
+from app.utils.str_utils import str_to_bool
 
 
 class AppWorld:

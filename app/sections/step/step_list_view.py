@@ -38,10 +38,6 @@ class StepListView:
         selected_model_indexes = self.lst_steps.selectedIndexes()
         self.delete_steps_by_indexes(selected_model_indexes, delete_from_db=False)
 
-        mis = [self.model.index(n, 0) for n in range(self.model.rowCount())]
-        for mi in mis:
-            print("===> {}".format(mi.row()))
-
         steps = [self.model.item(n).data(STEP_LIST_OBJECT_ROLE) for n in range(self.model.rowCount())]
         # print("===> Resort")
         # for s in steps:

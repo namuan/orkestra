@@ -4,8 +4,8 @@ import attr
 
 from app.commands.add_step_command import AddStepCommand
 from app.core.step_types import StepType
-from app.core.uuid_utils import gen_uuid
 from app.data import BaseEntity, BaseStore
+from app.utils.uuid_utils import gen_uuid
 
 STEP_RECORD_TYPE = "steps"
 
