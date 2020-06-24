@@ -71,21 +71,41 @@
           <attribute name="title">
            <string>Headers</string>
           </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="KeyValueListWidget" name="lst_http_headers"/>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="query_params">
           <attribute name="title">
            <string>Query Params</string>
           </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="KeyValueListWidget" name="lst_http_query_params"/>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="form_params">
           <attribute name="title">
            <string>Form Params</string>
           </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="KeyValueListWidget" name="lst_http_form_params"/>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="request_body">
           <attribute name="title">
            <string>Request Body</string>
           </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QPlainTextEdit" name="txt_http_request_body"/>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
@@ -110,7 +130,7 @@
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPlainTextEdit" name="txt_raw_request"/>
+            <widget class="QPlainTextEdit" name="txt_http_raw_request"/>
            </item>
           </layout>
          </widget>
@@ -120,7 +140,7 @@
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QPlainTextEdit" name="txt_raw_response"/>
+            <widget class="QPlainTextEdit" name="txt_http_raw_response"/>
            </item>
           </layout>
          </widget>
@@ -130,7 +150,7 @@
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QPlainTextEdit" name="txt_formatted_response"/>
+            <widget class="QPlainTextEdit" name="txt_http_formatted_response"/>
            </item>
           </layout>
          </widget>
@@ -142,6 +162,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KeyValueListWidget</class>
+   <extends>QListWidget</extends>
+   <header>app.widgets.key_value_list_widget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
