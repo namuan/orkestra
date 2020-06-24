@@ -27,6 +27,7 @@ class StepEntity(BaseEntity):
     description: str
     id: str
     step_type: StepType
+    order: int = 0
     record_type: str = STEP_RECORD_TYPE
 
 
@@ -53,6 +54,19 @@ class StepStore(BaseStore):
         logging.info("Upsert Step: {}".format(step_entity.id))
         self.ds.events.step_added.emit(step_entity.id)
 
+    def update_multiple_steps(self, steps):
+        table = self.ds.table_for(STEP_RECORD_TYPE)
+        for step_entity in steps:
+            table.upsert(
+                dict(
+                    name=STEP_RECORD_TYPE,
+                    step_id=step_entity.id,
+                    object=step_entity.to_json_str(),
+                ),
+                ["step_id"],
+            )
+            logging.info("Upsert Step: {}".format(step_entity.id))
+
     def get_step(self, step_id):
         logging.info("Get Step: {}".format(step_id))
         table = self.ds.table_for(STEP_RECORD_TYPE)
@@ -62,14 +76,15 @@ class StepStore(BaseStore):
 
         return StepEntity.from_json_str(step_db["object"])
 
-    def get_steps(self):
+    def get_sorted_steps(self):
         logging.info("Get All Steps")
         table = self.ds.table_for(STEP_RECORD_TYPE)
         steps_db = table.find(name=STEP_RECORD_TYPE)
-        return {
-            step_db["step_id"]: StepEntity.from_json_str(step_db["object"])
-            for step_db in steps_db
-        }
+        step_entities = [StepEntity.from_json_str(step_db["object"]) for step_db in steps_db]
+        return sorted(
+            step_entities,
+            key=lambda s: s.order or 0,
+        )
 
     def delete_all_steps(self):
         logging.info("Delete All Steps")

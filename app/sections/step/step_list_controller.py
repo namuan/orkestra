@@ -11,7 +11,7 @@ class StepListController:
         self.world.data.events.steps_deleted.connect(self.on_repopulate_steps)
 
     def on_repopulate_steps(self):
-        steps = self.world.step_store.get_steps()
+        steps = self.world.step_store.get_sorted_steps()
         self.parent.clear_steps()
         self.parent.update_steps(steps)
         if len(steps) > 0:
@@ -26,3 +26,6 @@ class StepListController:
 
     def delete_step(self, step_entity):
         self.world.step_store.delete_single_step(step_entity.id)
+
+    def update_multiple_steps(self, steps):
+        self.world.step_store.update_multiple_steps(steps)

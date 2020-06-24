@@ -86,6 +86,6 @@ def test_app_with_prepopulated_data(qtbot):
     # add some steps
     for i in range(5):
         add_step_with_command(window, "HTTP", f" {i} - GET Request")
-        # add_step_with_command(window, "SQL", f" {i} - SELECT Request")
+        add_step_with_command(window, "SQL", f" {i} - SELECT Request")
 
     interact(qtbot)

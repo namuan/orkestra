@@ -38,10 +38,13 @@ class StepListView:
         selected_model_indexes = self.lst_steps.selectedIndexes()
         self.delete_steps_by_indexes(selected_model_indexes, delete_from_db=False)
 
-        steps = [self.model.item(n).data(STEP_LIST_OBJECT_ROLE) for n in range(self.model.rowCount())]
-        # print("===> Resort")
-        # for s in steps:
-        #     print(s.title, s.id)
+        def step_with_order(order):
+            step_entity = self.model.item(order).data(STEP_LIST_OBJECT_ROLE)
+            step_entity.order = order
+            return step_entity
+
+        steps = [step_with_order(n) for n in range(self.model.rowCount())]
+        self.controller.update_multiple_steps(steps)
 
     def get_step_entity_at_index(self, model_index):
         return model_index.data(STEP_LIST_OBJECT_ROLE)
@@ -83,7 +86,7 @@ class StepListView:
         self.model.clear()
 
     def update_steps(self, steps):
-        for step_id, step in steps.items():
+        for step in steps:
             self.add_step_widget(step, select_item=False)
 
     def select_step_at(self, position):

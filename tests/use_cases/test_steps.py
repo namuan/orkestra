@@ -48,7 +48,7 @@ def test_save_new_steps_in_database(qtbot):
     add_step(window, "SQL")
 
     # then
-    steps = window.world.step_store.get_steps()
+    steps = window.world.step_store.get_sorted_steps()
     assert len(steps) == 2, "Unable to save steps in database"
 
 
@@ -90,7 +90,7 @@ def test_delete_step(qtbot):
         "Unable to delete step"
 
     # and (it should be removed from database)
-    steps_in_db = window.world.step_store.get_steps()
+    steps_in_db = window.world.step_store.get_sorted_steps()
     assert len(steps_in_db) == 1
 
 
@@ -113,7 +113,7 @@ def test_delete_multiple_step(qtbot):
     window.step_list_view.on_delete_selected_item()
 
     # then (it should be removed from database)
-    steps_in_db = window.world.step_store.get_steps()
+    steps_in_db = window.world.step_store.get_sorted_steps()
     assert len(steps_in_db) == 3
 
     # and (it should be removed from list view)
