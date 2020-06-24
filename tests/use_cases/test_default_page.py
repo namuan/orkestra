@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 
-from app.widgets.http_step_widget import HttpStepWidget
+from app.sections.httpstep.http_step_view import HttpStepView
 from app.widgets.sql_step_widget import SqlStepWidget
 from . import get_main_window
 
@@ -22,7 +22,7 @@ def test_adding_http_widget_from_default_page(qtbot):
     qtbot.mouseClick(window.btn_new_http_request, QtCore.Qt.LeftButton)
 
     # then
-    assert type(window.stackedWidget.currentWidget()) == HttpStepWidget, \
+    assert type(window.stackedWidget.currentWidget()) == HttpStepView, \
         "Should switch to HttpStepWidget"
 
 

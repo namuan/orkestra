@@ -1,4 +1,4 @@
-from app.widgets.http_step_widget import HttpStepWidget
+from app.sections.httpstep.http_step_view import HttpStepView
 from app.widgets.sql_step_widget import SqlStepWidget
 from . import get_main_window
 
@@ -29,7 +29,7 @@ def test_switching_steps(qtbot):
     window.lst_steps.setCurrentIndex(first_idx)
 
     # then
-    assert type(window.stackedWidget.currentWidget()) == HttpStepWidget, \
+    assert type(window.stackedWidget.currentWidget()) == HttpStepView, \
         "Should switch to HttpStepWidget"
 
     # and

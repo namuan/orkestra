@@ -17,10 +17,10 @@ from app.sections.step.step_switcher_controller import StepSwitcherController
 from app.sections.toolbar import ToolbarController
 from app.sections.toolbar.environment_list_view import EnvironmentListView
 from app.settings.app_world import AppWorld
-from app.widgets.http_step_widget import HttpStepWidget
 from app.widgets.sql_step_widget import SqlStepWidget
 from .default_page_controller import DefaultPageController
 from .main_controller import MainWindowController
+from ..httpstep.http_step_view import HttpStepView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -52,12 +52,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.toolbar_controller.init_items()
         self.shortcut_controller.init_items()
 
-
         # Initialise stacks
-        self.http_step_widget = HttpStepWidget()
+        # self.http_step_widget = HttpStepWidget()
         self.sql_step_widget = SqlStepWidget()
+        self.http_step_view = HttpStepView(self)
 
-        self.stackedWidget.addWidget(self.http_step_widget)
+        self.stackedWidget.addWidget(self.http_step_view)
         self.stackedWidget.addWidget(self.sql_step_widget)
 
         # Initialise Sub-Systems
@@ -87,6 +87,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not new_step:
             self.stackedWidget.setCurrentIndex(0)
         elif new_step.step_type == StepType.HTTP:
-            self.stackedWidget.setCurrentWidget(self.http_step_widget)
+            self.stackedWidget.setCurrentWidget(self.http_step_view)
         elif new_step.step_type == StepType.SQL:
             self.stackedWidget.setCurrentWidget(self.sql_step_widget)
