@@ -11,14 +11,15 @@ Here is a rough implementation plan for Orkestra with backlog
 - 0.3.5 - Swap between steps - https://github.com/namuan/orkestra/issues/4
 - 0.4.0 - Environments - https://github.com/namuan/orkestra/issues/5
 - 0.5.0 - Variables in Environment - https://github.com/namuan/orkestra/issues/6
-- 0.6.0 - Try Layout switching with QStackedWidget
-- 0.6.0 - _Welcome Screen_ Setup Default Actions if no steps are currently added
-- 0.6.0 - Load all steps from database on application start-up
-- 0.6.0 - Custom List Item Widget to Display Step
-- 0.7.0 - Implement functionality behind HTTP Client
+- 0.6.0 - Try Layout switching with QStackedWidget https://github.com/namuan/orkestra/issues/11
+- 0.6.0 - _Welcome Screen_ Setup Default Actions if no steps are currently added https://github.com/namuan/orkestra/issues/11
+- 0.6.0 - Load all steps from database on application start-up https://github.com/namuan/orkestra/issues/11
+- 0.6.0 - Custom List Item Widget to Display Step https://github.com/namuan/orkestra/issues/11
+- 0.7.0 - Implement functionality behind HTTP Client https://github.com/namuan/orkestra/issues/2
 - 0.8.0 - Implement functionality behind SQL Client
 - 0.9.0 - Using Variables in Steps
-- 0.9.0 - Hide/Disable "Add New" button if no environments present 
+- 0.9.0 - Hide/Disable "Add New" button if no environments present
+- 0.9.0 - Run All Steps 
 - 1.0.0 - Release Prep
 
 **Outstanding Tasks**
@@ -51,3 +52,7 @@ Here is a rough implementation plan for Orkestra with backlog
 - User should be able to add a new template for a step
 - User should be able to generate code for all the steps in the selected folder
 - User should be able to generate code for all the steps filtered by the search query
+
+## Future
+
+- User should be able to see old exchanges
