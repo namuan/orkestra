@@ -12,12 +12,12 @@ from app.sections.environment import EnvironmentView
 from app.sections.folder import FoldersView
 from app.sections.scratchpad import ScratchPadController
 from app.sections.shortcut import ShortcutController
+from app.sections.sqlstep.sql_step_view import SqlStepView
 from app.sections.step.step_list_view import StepListView
 from app.sections.step.step_switcher_controller import StepSwitcherController
 from app.sections.toolbar import ToolbarController
 from app.sections.toolbar.environment_list_view import EnvironmentListView
 from app.settings.app_world import AppWorld
-from app.widgets.sql_step_widget import SqlStepWidget
 from .default_page_controller import DefaultPageController
 from .main_controller import MainWindowController
 from ..httpstep.http_step_view import HttpStepView
@@ -54,11 +54,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Initialise stacks
         # self.http_step_widget = HttpStepWidget()
-        self.sql_step_widget = SqlStepWidget()
+        self.sql_step_view = SqlStepView(self)
         self.http_step_view = HttpStepView(self)
 
         self.stackedWidget.addWidget(self.http_step_view)
-        self.stackedWidget.addWidget(self.sql_step_widget)
+        self.stackedWidget.addWidget(self.sql_step_view)
 
         # Initialise Sub-Systems
         sys.excepthook = MainWindow.log_uncaught_exceptions
@@ -89,4 +89,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif new_step.step_type == StepType.HTTP:
             self.stackedWidget.setCurrentWidget(self.http_step_view)
         elif new_step.step_type == StepType.SQL:
-            self.stackedWidget.setCurrentWidget(self.sql_step_widget)
+            self.stackedWidget.setCurrentWidget(self.sql_step_view)

@@ -1,7 +1,7 @@
 from PyQt5 import QtCore
 
 from app.sections.httpstep.http_step_view import HttpStepView
-from app.widgets.sql_step_widget import SqlStepWidget
+from app.sections.sqlstep.sql_step_view import SqlStepView
 from . import get_main_window
 
 
@@ -34,5 +34,5 @@ def test_adding_sql_widget_from_default_page(qtbot):
     qtbot.mouseClick(window.btn_new_sql_request, QtCore.Qt.LeftButton)
 
     # then
-    assert type(window.stackedWidget.currentWidget()) == SqlStepWidget, \
+    assert type(window.stackedWidget.currentWidget()) == SqlStepView, \
         "Should switch to SqlStepWidget"
