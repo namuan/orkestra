@@ -6,6 +6,11 @@ import attr
 from app.commands.add_step_command import AddStepCommand
 from app.core.step_types import StepType
 from app.data import BaseEntity, BaseStore
+from app.sections.step.step_data_entities import (
+    HttpStepEntity,
+    SqlStepEntity,
+    default_step_data,
+)
 from app.utils.uuid_utils import gen_uuid
 
 STEP_RECORD_TYPE = "steps"
@@ -23,17 +28,6 @@ def default_description():
 
 
 @attr.s(auto_attribs=True)
-class HttpStepEntity(BaseEntity):
-    http_url: str
-    http_method: str
-
-
-@attr.s(auto_attribs=True)
-class SqlStepEntity(BaseEntity):
-    sql_query: str
-
-
-@attr.s(auto_attribs=True)
 class StepEntity(BaseEntity):
     title: str
     description: str
@@ -44,13 +38,6 @@ class StepEntity(BaseEntity):
     record_type: str = STEP_RECORD_TYPE
 
 
-def default_step_data(step_type):
-    if step_type == StepType.HTTP:
-        return HttpStepEntity(http_url="https://httpbin.org/get", http_method="GET")
-    elif step_type == StepType.SQL:
-        return SqlStepEntity(sql_query="SELECT * FROM World")
-
-
 class StepStore(BaseStore):
     def __init__(self, data_store):
         super().__init__(data_store)
@@ -58,7 +45,7 @@ class StepStore(BaseStore):
     def add_step(self, add_step_command: AddStepCommand):
         step_entity = StepEntity(
             title=add_step_command.step_title
-                  or default_title(add_step_command.step_type),
+            or default_title(add_step_command.step_type),
             description=default_description(),
             id=gen_uuid(),
             step_type=add_step_command.step_type,
@@ -105,7 +92,7 @@ class StepStore(BaseStore):
         step_entities = [
             StepEntity.from_json_str(step_db["object"]) for step_db in steps_db
         ]
-        return sorted(step_entities, key=lambda s: s.order or 0, )
+        return sorted(step_entities, key=lambda s: s.order or 0,)
 
     def delete_all_steps(self):
         logging.info("Delete All Steps")
