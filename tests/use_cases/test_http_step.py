@@ -1,5 +1,7 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import QItemSelectionModel
 
+from app.core.dynamic_string import DynamicStringData
 from . import get_main_window
 
 
@@ -39,3 +41,61 @@ def test_add_new_http_steps(qtbot):
         "Unable to add steps using the toolbar button"
     assert window.http_step_view.cmb_http_method.currentText() == "GET"
     assert window.http_step_view.txt_http_url.text() == "https://httpbin.org/get"
+
+
+def get_headers_list(window):
+    return window.http_step_view.lst_http_headers
+
+
+def get_query_params_list(window):
+    return window.http_step_view.lst_http_query_params
+
+
+def add_key_value_param(key_value_list_widget, var_name="Test Var Name", var_value="Test Var Value", position=0):
+    key_value_list_widget.setup_new_key_value_widget(var_name, DynamicStringData(value=var_value), position)
+
+
+def build_http_get_request(window):
+    window.http_step_view.txt_http_step_title.setText("A New Request")
+    window.http_step_view.txt_http_step_description.setPlainText("New Request Description")
+    # headers
+    add_key_value_param(get_headers_list(window), "Content-Type", "application/json")
+    # query params
+    add_key_value_param(get_query_params_list(window), "Client", "Orkestra")
+
+
+def test_send_http_get_request(qtbot):
+    # given (new window)
+    window = show_window(qtbot)
+
+    # and: add a new HTTP step
+    add_step(window, "HTTP")
+
+    # and: populate http request
+    build_http_get_request(window)
+
+    # when: press Send
+    qtbot.mouseClick(window.http_step_view.btn_send_request, QtCore.Qt.LeftButton)
+
+    # then: wait for response
+    # and: check raw request field
+    assert window.http_step_view.txt_http_raw_request.toPlainText() != ""
+    # and: check raw response field
+    assert window.http_step_view.txt_http_raw_response.toPlainText() != ""
+    # and: check formatted response field
+    assert window.http_step_view.txt_http_formatted_response.toPlainText() != ""
+
+
+def test_send_http_post_request(qtbot):
+    # Send request to test post data
+    pass
+
+
+def test_send_http_form_request(qtbot):
+    # Send request to test form params
+    pass
+
+
+def test_send_http_error_request(qtbot):
+    # Send request to simulate 4xx/5xx errors
+    pass

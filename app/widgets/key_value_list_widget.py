@@ -29,7 +29,7 @@ class KeyValueListWidget(QtWidgets.QWidget, Ui_KeyValueListWidget):
         total_items = self.key_value_item_list.count()
         self.setup_new_key_value_widget("", DynamicStringData(), total_items - 1)
 
-    def setup_new_key_value_widget(self, key, value, item_position):
+    def setup_new_key_value_widget(self, key, value: DynamicStringData, item_position):
         item = QListWidgetItem()
         kv_widget = KeyValueWidget(
             self.key_value_item_list, item, self.remove_key_value_widget
