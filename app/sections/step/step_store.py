@@ -1,4 +1,5 @@
 import logging
+from typing import Union
 
 import attr
 
@@ -22,13 +23,32 @@ def default_description():
 
 
 @attr.s(auto_attribs=True)
+class HttpStepEntity(BaseEntity):
+    http_url: str
+    http_method: str
+
+
+@attr.s(auto_attribs=True)
+class SqlStepEntity(BaseEntity):
+    sql_query: str
+
+
+@attr.s(auto_attribs=True)
 class StepEntity(BaseEntity):
     title: str
     description: str
     id: str
     step_type: StepType
+    step_data: Union[HttpStepEntity, SqlStepEntity]
     order: int = 0
     record_type: str = STEP_RECORD_TYPE
+
+
+def default_step_data(step_type):
+    if step_type == StepType.HTTP:
+        return HttpStepEntity(http_url="https://httpbin.org/get", http_method="GET")
+    elif step_type == StepType.SQL:
+        return SqlStepEntity(sql_query="SELECT * FROM World")
 
 
 class StepStore(BaseStore):
@@ -37,10 +57,12 @@ class StepStore(BaseStore):
 
     def add_step(self, add_step_command: AddStepCommand):
         step_entity = StepEntity(
-            title=add_step_command.step_title or default_title(add_step_command.step_type),
+            title=add_step_command.step_title
+                  or default_title(add_step_command.step_type),
             description=default_description(),
             id=gen_uuid(),
             step_type=add_step_command.step_type,
+            step_data=default_step_data(add_step_command.step_type),
         )
         table = self.ds.table_for(step_entity.record_type)
         table.upsert(
@@ -80,11 +102,10 @@ class StepStore(BaseStore):
         logging.info("Get All Steps")
         table = self.ds.table_for(STEP_RECORD_TYPE)
         steps_db = table.find(name=STEP_RECORD_TYPE)
-        step_entities = [StepEntity.from_json_str(step_db["object"]) for step_db in steps_db]
-        return sorted(
-            step_entities,
-            key=lambda s: s.order or 0,
-        )
+        step_entities = [
+            StepEntity.from_json_str(step_db["object"]) for step_db in steps_db
+        ]
+        return sorted(step_entities, key=lambda s: s.order or 0, )
 
     def delete_all_steps(self):
         logging.info("Delete All Steps")

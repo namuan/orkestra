@@ -55,15 +55,13 @@ class StepItemDelegate(QStyledItemDelegate):
         )
 
         size: QSize = QSize(
-            option.rect.width(),
-            title_rect.height() +
-            10 * PADDING,
+            option.rect.width(), title_rect.height() + 10 * PADDING,
         )
 
         return size
 
     def paint(
-            self, painter: QPainter, option: QStyleOptionViewItem, model_index: QModelIndex
+        self, painter: QPainter, option: QStyleOptionViewItem, model_index: QModelIndex
     ):
         if not model_index.isValid():
             return
@@ -93,7 +91,7 @@ class StepItemDelegate(QStyledItemDelegate):
             0,
             0,
             Qt.AlignLeft | Qt.AlignTop,
-            padded_step_type
+            padded_step_type,
         )
         painter.setRenderHint(QPainter.Antialiasing)
         path = QPainterPath()
@@ -101,9 +99,7 @@ class StepItemDelegate(QStyledItemDelegate):
         painter.fillPath(path, step_bounded_rect_fill())
         painter.setFont(font)
         painter.setPen(step_bounded_rect_pen())
-        painter.drawText(
-            step_type_rect, Qt.AlignLeft | Qt.AlignTop, padded_step_type
-        )
+        painter.drawText(step_type_rect, Qt.AlignLeft | Qt.AlignTop, padded_step_type)
 
         # end draw type
 

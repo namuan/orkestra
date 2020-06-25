@@ -38,3 +38,4 @@ def test_add_new_http_steps(qtbot):
     assert window.lst_steps.model().rowCount() == 1, \
         "Unable to add steps using the toolbar button"
     assert window.http_step_view.cmb_http_method.currentText() == "GET"
+    assert window.http_step_view.txt_http_url.text() == "https://httpbin.org/get"

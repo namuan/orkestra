@@ -1,4 +1,6 @@
-from app.sections.httpstep.http_step_response_controller import HttpStepResponseController
+from app.sections.httpstep.http_step_response_controller import (
+    HttpStepResponseController,
+)
 
 
 class HttpStepResponseView:
