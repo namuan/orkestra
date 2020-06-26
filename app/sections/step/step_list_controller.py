@@ -28,4 +28,4 @@ class StepListController:
         self.world.step_store.delete_single_step(step_entity.id)
 
     def update_multiple_steps(self, steps):
-        self.world.step_store.update_multiple_steps(steps)
+        self.world.step_store.update_steps(steps)

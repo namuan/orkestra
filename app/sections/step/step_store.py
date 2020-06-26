@@ -63,7 +63,7 @@ class StepStore(BaseStore):
         logging.info("Upsert Step: {}".format(step_entity.id))
         self.ds.events.step_added.emit(step_entity.id)
 
-    def update_multiple_steps(self, steps):
+    def update_steps(self, steps):
         table = self.ds.table_for(STEP_RECORD_TYPE)
         for step_entity in steps:
             table.upsert(
@@ -74,7 +74,7 @@ class StepStore(BaseStore):
                 ),
                 ["step_id"],
             )
-            logging.info("Upsert Step: {}".format(step_entity.id))
+            logging.info("Upsert Step: {}".format(step_entity))
 
     def get_step(self, step_id):
         logging.info("Get Step: {}".format(step_id))
