@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import qApp
 
 from app.data.app_state import AppStateStore
 from app.data.data_store import DataStore
+from app.scheduling.worker_pool import WorkerPool
 from app.sections.configuration.app_config import AppConfig
 from app.sections.environment.environment_store import EnvironmentStore
 from app.sections.folder import FolderStore
@@ -24,6 +25,7 @@ class AppWorld:
     folder_store: FolderStore
     step_store: StepStore
     environment_store: EnvironmentStore
+    worker_pool: WorkerPool
 
     def __init__(self):
         self.docs_location: Path = Path(
@@ -46,6 +48,7 @@ class AppWorld:
         self.folder_store = FolderStore(self.data)
         self.step_store = StepStore(self.data)
         self.environment_store = EnvironmentStore(self.data)
+        self.worker_pool = WorkerPool()
 
     def init_logger(self):
         log_file = f"{self.app_name}.log"

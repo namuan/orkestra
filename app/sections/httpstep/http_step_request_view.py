@@ -30,5 +30,5 @@ class HttpStepRequestView:
         return http_step_entity
 
     def on_send_http_request(self):
-        runStepCommand = RunStepCommand(step_id=self.controller.current_step_id)
-        self.controller.trigger_run_http_step(runStepCommand)
+        run_step_command = RunStepCommand(step_id=self.controller.current_step_id)
+        self.controller.trigger_run_http_step(run_step_command)

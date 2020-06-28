@@ -20,9 +20,10 @@ class HttpStepRequestController:
     def on_step_selection_changed(self, step_id):
         self.current_step_id = step_id
 
-    def trigger_run_http_step(self, runStepCommand):
-        step_entity: StepEntity = self.world.step_store.get_step(runStepCommand.step_id)
+    def trigger_run_http_step(self, run_step_command):
+        step_entity: StepEntity = self.world.step_store.get_step(run_step_command.step_id)
         step_data = self.parent.form_to_object()
         step_entity.step_data = step_data
         self.world.step_store.update_steps([step_entity])
-        print("Running Step: {}".format(step_entity))
+        run_step_command.step_entity = step_entity
+        self.world.worker_pool.schedule(run_step_command)
