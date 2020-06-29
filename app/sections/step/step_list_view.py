@@ -72,7 +72,8 @@ class StepListView:
         before_first_row_to_delete = selected_model_indexes[0].row() - 1
         if before_first_row_to_delete >= 0:
             previous_item: QStandardItem = self.model.item(before_first_row_to_delete)
-            self.select_step_at_index(previous_item.index())
+            if previous_item:
+                self.select_step_at_index(previous_item.index())
 
     def on_display_context_menu(self, position):
         index: QModelIndex = self.lst_steps.indexAt(position)

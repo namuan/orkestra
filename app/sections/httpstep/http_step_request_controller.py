@@ -1,3 +1,4 @@
+from app.core.step_types import StepType
 from app.sections.step.step_store import StepEntity
 
 
@@ -14,8 +15,9 @@ class HttpStepRequestController:
         )
 
     def on_step_added(self, step_id):
-        step_entity = self.world.step_store.get_step(step_id)
-        self.parent.object_to_form(step_entity)
+        step_entity: StepEntity = self.world.step_store.get_step(step_id)
+        if step_entity.step_type == StepType.HTTP:
+            self.parent.object_to_form(step_entity)
 
     def on_step_selection_changed(self, step_id):
         self.current_step_id = step_id
