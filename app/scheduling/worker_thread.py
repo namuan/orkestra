@@ -13,3 +13,6 @@ class WorkerThread(QThread):
     def run(self):
         logging.info("Running WorkerThread for RunStepCommand: {}".format(self.run_step_command))
         self.world.events.worker_started.emit(self.run_step_command)
+        import time
+        time.sleep(5)
+        self.world.events.worker_stopped.emit()

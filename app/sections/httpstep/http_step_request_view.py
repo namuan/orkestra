@@ -32,3 +32,9 @@ class HttpStepRequestView:
     def on_send_http_request(self):
         run_step_command = RunStepCommand(step_id=self.controller.current_step_id)
         self.controller.trigger_run_http_step(run_step_command)
+
+    def disable_send_button(self):
+        self.parent.btn_send_request.setDisabled(True)
+
+    def enable_send_button(self):
+        self.parent.btn_send_request.setEnabled(True)

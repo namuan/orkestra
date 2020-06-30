@@ -14,6 +14,16 @@ class HttpStepRequestController:
             self.on_step_selection_changed
         )
 
+        # world events
+        self.world.events.worker_started.connect(self.on_worker_started)
+        self.world.events.worker_stopped.connect(self.on_worker_stopped)
+
+    def on_worker_stopped(self):
+        self.parent.enable_send_button()
+
+    def on_worker_started(self):
+        self.parent.disable_send_button()
+
     def on_step_added(self, step_id):
         step_entity: StepEntity = self.world.step_store.get_step(step_id)
         if step_entity.step_type == StepType.HTTP:
