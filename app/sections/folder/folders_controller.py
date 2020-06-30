@@ -4,7 +4,7 @@ class FoldersController:
         self.world = world
 
         # domain events
-        self.world.data.events.app_started.connect(self.on_app_started)
+        self.world.events.app_started.connect(self.on_app_started)
 
     def on_app_started(self):
         folders = self.world.folder_store.folders.folders

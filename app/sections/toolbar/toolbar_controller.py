@@ -24,7 +24,7 @@ class ToolbarController:
         self.world: AppWorld = self.main_window.world
 
         # app start events
-        self.world.data.events.app_started.connect(self.on_app_started)
+        self.world.events.app_started.connect(self.on_app_started)
 
     def on_app_started(self):
         pass

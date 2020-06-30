@@ -94,5 +94,4 @@ class AppWorld:
         return self.settings.value("windowState", None)
 
     def started(self):
-        # TODO: Move to WorldEvents
-        self.data.events.app_started.emit()
+        self.events.app_started.emit()

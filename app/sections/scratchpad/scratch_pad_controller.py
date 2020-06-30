@@ -26,7 +26,7 @@ class ScratchPadController:
         self.events = ScratchPadEvents(self.main_window, self.world)
 
         # ui events
-        self.world.data.events.app_started.connect(self.on_app_started)
+        self.world.events.app_started.connect(self.on_app_started)
 
         # installing event filter
         self.main_window.txt_scratch_pad.installEventFilter(self.events)

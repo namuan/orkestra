@@ -2,7 +2,6 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 
 class DataEvents(QObject):
-    app_started = pyqtSignal()
     step_added = pyqtSignal(str)  # StepEntity.id
     steps_deleted = pyqtSignal()
     step_deleted = pyqtSignal(str)  # StepEntity.id

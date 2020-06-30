@@ -4,7 +4,7 @@ class StepListController:
         self.world = world
 
         # app start event
-        self.world.data.events.app_started.connect(self.on_repopulate_steps)
+        self.world.events.app_started.connect(self.on_repopulate_steps)
 
         # domain events
         self.world.data.events.step_added.connect(self.on_step_added)

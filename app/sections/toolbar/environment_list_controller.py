@@ -4,7 +4,7 @@ class EnvironmentListController:
         self.world = world
 
         # app start event
-        self.world.data.events.app_started.connect(self.on_repopulate_environments)
+        self.world.events.app_started.connect(self.on_repopulate_environments)
 
         # domain events
         self.world.data.events.environments_changed.connect(
