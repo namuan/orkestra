@@ -16,7 +16,8 @@ class WrappedRunStepCommand(object):
 
 
 class WorkerPool:
-    def __init__(self):
+    def __init__(self, world):
+        self.world = world
         self.worker_queue: Queue = Queue()
         self.any_worker_running: bool = False
         self.current_worker = None
@@ -44,7 +45,7 @@ class WorkerPool:
 
     def process_command(self, wrapped_command):
         logging.info("Sending wrapper command to Worker -> {}".format(wrapped_command))
-        self.current_worker = WorkerThread(wrapped_command)
+        self.current_worker = WorkerThread(self.world, wrapped_command)
         self.current_worker.start()
 
     def on_success_after_command_run(self):

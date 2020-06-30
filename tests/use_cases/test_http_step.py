@@ -77,7 +77,7 @@ def test_send_http_get_request(qtbot):
     # when: press Send
     qtbot.mouseClick(window.http_step_view.btn_send_request, QtCore.Qt.LeftButton)
 
-#    interact(qtbot)
+    # interact(qtbot)
 
     # then: wait for response
     # and: check raw request field

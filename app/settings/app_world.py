@@ -13,6 +13,7 @@ from app.sections.configuration.app_config import AppConfig
 from app.sections.environment.environment_store import EnvironmentStore
 from app.sections.folder import FolderStore
 from app.sections.step.step_store import StepStore
+from app.signals import WorldEvents
 from app.utils.str_utils import str_to_bool
 
 
@@ -21,6 +22,7 @@ class AppWorld:
     app_dir: Union[Path, Any]
     app_name: str
     data: DataStore
+    events: WorldEvents = WorldEvents()
     app_state_store: AppStateStore
     folder_store: FolderStore
     step_store: StepStore
@@ -48,7 +50,7 @@ class AppWorld:
         self.folder_store = FolderStore(self.data)
         self.step_store = StepStore(self.data)
         self.environment_store = EnvironmentStore(self.data)
-        self.worker_pool = WorkerPool()
+        self.worker_pool = WorkerPool(self)
 
     def init_logger(self):
         log_file = f"{self.app_name}.log"
@@ -92,4 +94,5 @@ class AppWorld:
         return self.settings.value("windowState", None)
 
     def started(self):
+        # TODO: Move to WorldEvents
         self.data.events.app_started.emit()
