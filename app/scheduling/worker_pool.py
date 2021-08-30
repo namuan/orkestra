@@ -23,7 +23,7 @@ class WorkerPool:
         self.current_worker = None
 
     def schedule(self, run_step_command):
-        print("Schedule Step command: {}".format(run_step_command))
+        logging.info("Schedule Step command: {}".format(run_step_command))
         wrapped_command = WrappedRunStepCommand(
             run_step_command=run_step_command,
             on_success=self.on_success_after_command_run,
