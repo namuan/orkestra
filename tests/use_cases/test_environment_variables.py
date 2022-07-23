@@ -102,7 +102,7 @@ def test_adding_environment_variables(qtbot):
 
 
 def test_delete_environment_variables_row(qtbot):
-    #  given (a few environments)
+    # given (a few environments)
     window = show_window(qtbot)
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
