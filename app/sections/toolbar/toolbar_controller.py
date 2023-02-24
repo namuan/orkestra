@@ -1,19 +1,20 @@
+import logging
 from functools import partial
 
+from PyQt6 import QtCore
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
     QToolBar,
     QWidget,
     QSizePolicy,
-    QMenu,
     QComboBox,
     QWidgetAction,
 )
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QApplication
 
-from app.core.constants import AVAILABLE_STEPS
+from app.core.constants import HTTP_STEP, SQL_STEP
 from app.settings.app_world import AppWorld
 
 
@@ -34,27 +35,32 @@ class ToolbarController:
         self.main_window.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolbar)
         self.toolbar.setMovable(False)
 
-        steps_menu = QMenu()
-        for step in AVAILABLE_STEPS:
-            s_action = QAction(step, self.main_window)
-            s_action.triggered.connect(
-                partial(
-                    self.main_window.default_page_controller.trigger_add_step_command,
-                    step,
-                )
-            )
-            steps_menu.addAction(s_action)
-
-        toolbar_new_step_action = QAction(
-            QIcon(":/images/plus-48.png"), "New Step", self.main_window
+        toolbar_http_step_action = QAction(
+            QIcon("icons:http-48.png"), "Http Step", self.main_window
         )
-        toolbar_new_step_action.setMenu(steps_menu)
-        self.toolbar.addAction(toolbar_new_step_action)
+        toolbar_http_step_action.triggered.connect(
+            partial(
+                self.main_window.default_page_controller.trigger_add_step_command,
+                HTTP_STEP,
+            )
+        )
+        self.toolbar.addAction(toolbar_http_step_action)
+
+        toolbar_sql_step_action = QAction(
+            QIcon("icons:sql-48.png"), "Sql Step", self.main_window
+        )
+        toolbar_sql_step_action.triggered.connect(
+            partial(
+                self.main_window.default_page_controller.trigger_add_step_command,
+                SQL_STEP,
+            )
+        )
+        self.toolbar.addAction(toolbar_sql_step_action)
 
         self.toolbar.addSeparator()
 
         toolbar_environment_action = QAction(
-            QIcon(":/images/environment-48.png"),
+            QIcon("icons:environment-48.png"),
             "Configure Environments",
             self.main_window,
         )
@@ -84,7 +90,7 @@ class ToolbarController:
         self.toolbar.addWidget(spacer)
 
         toolbar_configure_action = QAction(
-            QIcon(":/images/configure-48.png"), "Settings", self.main_window
+            QIcon("icons:configure-48.png"), "Settings", self.main_window
         )
         toolbar_configure_action.triggered.connect(
             self.main_window.config_view.show_dialog
@@ -92,7 +98,7 @@ class ToolbarController:
         self.toolbar.addAction(toolbar_configure_action)
 
         toolbar_quit_action = QAction(
-            QIcon(":/images/quit-48.png"), "Quit", self.main_window
+            QIcon("icons:quit-48.png"), "Quit", self.main_window
         )
         toolbar_quit_action.triggered.connect(self.trigger_quit_application)
         self.toolbar.addAction(toolbar_quit_action)

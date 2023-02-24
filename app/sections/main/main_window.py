@@ -1,7 +1,9 @@
 import logging
-import traceback
-
 import sys
+import traceback
+from pathlib import Path
+
+from PyQt6.QtCore import QDir
 from PyQt6.QtGui import QCloseEvent
 from PyQt6.QtWidgets import QMainWindow, QApplication
 
@@ -32,6 +34,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setUnifiedTitleAndToolBarOnMac(True)
 
         self.world = AppWorld()
+
+        resources_path = (Path(__file__).parent.parent.parent.parent / "resources")
+        QDir.addSearchPath('icons', resources_path.joinpath("images").as_posix())
 
         # Initialise controllers
         self.main_controller = MainWindowController(self)
