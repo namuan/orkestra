@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import QItemSelectionModel
+from PyQt6 import QtCore
+from PyQt6.QtCore import QItemSelectionModel
 
 from app.core.dynamic_string import DynamicStringData
 from . import get_main_window
@@ -20,12 +20,12 @@ def add_step(window, step_name):
 
 def deselect_current_step(window):
     selected_index = window.step_list_view.lst_steps.currentIndex()
-    window.step_list_view.lst_steps.selectionModel().select(selected_index, QItemSelectionModel.Deselect)
+    window.step_list_view.lst_steps.selectionModel().select(selected_index, QItemSelectionModel.SelectionFlag.Deselect)
 
 
 def select_step(window, position):
     selected_item = window.step_list_view.model.item(position)
-    window.step_list_view.lst_steps.selectionModel().select(selected_item.index(), QItemSelectionModel.Select)
+    window.step_list_view.lst_steps.selectionModel().select(selected_item.index(), QItemSelectionModel.SelectionFlag.Select)
 
 
 def test_add_new_http_steps(qtbot):
@@ -75,17 +75,17 @@ def test_send_http_get_request(qtbot):
     build_http_get_request(window)
 
     # when: press Send
-    qtbot.mouseClick(window.http_step_view.btn_send_request, QtCore.Qt.LeftButton)
+    qtbot.mouseClick(window.http_step_view.btn_send_request, QtCore.Qt.MouseButton.LeftButton)
 
     # interact(qtbot)
 
     # then: wait for response
     # and: check raw request field
-    assert window.http_step_view.txt_http_raw_request.toPlainText() != ""
+    assert window.http_step_view.txt_http_raw_request.toPlainText() != ''
     # and: check raw response field
-    assert window.http_step_view.txt_http_raw_response.toPlainText() != ""
+    assert window.http_step_view.txt_http_raw_response.toPlainText() != ''
     # and: check formatted response field
-    assert window.http_step_view.txt_http_formatted_response.toPlainText() != ""
+    assert window.http_step_view.txt_http_formatted_response.toPlainText() != ''
 
 
 def test_send_http_post_request(qtbot):

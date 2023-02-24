@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import QObject, QEvent
+from PyQt6 import QtCore
+from PyQt6.QtCore import QObject, QEvent
 
 
 class ScratchPadEvents(QObject):
@@ -9,7 +9,7 @@ class ScratchPadEvents(QObject):
         self.app = app
 
     def eventFilter(self, source: QObject, event: QEvent):
-        if event.type() == QtCore.QEvent.FocusOut:
+        if event.type() == QtCore.QEvent.Type.FocusOut:
             self.save_scratch_pad()
 
         return super().eventFilter(source, event)

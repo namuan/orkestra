@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialogButtonBox, QListWidgetItem
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QDialogButtonBox, QListWidgetItem
 
 from app.commands.add_step_command import AddStepCommand
 from app.core.faker_config import fake
@@ -19,12 +19,12 @@ def show_window(qtbot, clear_state=True):
 
 def add_environments(qtbot, window, number):
     for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.MouseButton.LeftButton)
 
 
 def close_and_save_environments(qtbot, window):
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.StandardButton.Ok)
+    qtbot.mouseClick(ok_button, QtCore.Qt.MouseButton.LeftButton)
 
 
 def add_step(window, step_name):

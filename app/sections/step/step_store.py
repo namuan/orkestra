@@ -92,7 +92,10 @@ class StepStore(BaseStore):
         step_entities = [
             StepEntity.from_json_str(step_db["object"]) for step_db in steps_db
         ]
-        return sorted(step_entities, key=lambda s: s.order or 0,)
+        return sorted(
+            step_entities,
+            key=lambda s: s.order or 0,
+        )
 
     def delete_all_steps(self):
         logging.info("Delete All Steps")

@@ -1,7 +1,7 @@
 import logging
 
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog
+from PyQt6 import QtWidgets, QtCore, QtGui
+from PyQt6.QtWidgets import QDialog
 
 from app.generated.EnvironmentDialog_ui import Ui_EnvironmentsDialog
 from .environment_controller import EnvironmentController
@@ -49,7 +49,7 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
     def add_new_environment_widget(self, env_name):
         logging.info("Adding new environment widget for {}".format(env_name))
         item = QtWidgets.QListWidgetItem()
-        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        item.setFlags(item.flags() | QtCore.Qt.ItemFlag.ItemIsEditable)
         item.setText(env_name)
         self.lst_environments.addItem(item)
         self.select_new_environment_widget()
@@ -73,5 +73,5 @@ class EnvironmentView(QDialog, Ui_EnvironmentsDialog):
     @staticmethod
     def _icon_with(image_resource):
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(image_resource), QtGui.QIcon.Normal)
+        icon.addPixmap(QtGui.QPixmap(image_resource), QtGui.QIcon.Mode.Normal)
         return icon

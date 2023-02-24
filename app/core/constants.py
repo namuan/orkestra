@@ -1,7 +1,7 @@
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 # Step List roles reserved between 100 - 200
-STEP_LIST_TYPE_ROLE = Qt.UserRole + 100
+STEP_LIST_TYPE_ROLE = Qt.ItemDataRole.UserRole + 100
 STEP_LIST_OBJECT_ROLE = STEP_LIST_TYPE_ROLE + 1
 STEP_LIST_ID_ROLE = STEP_LIST_TYPE_ROLE + 2
 

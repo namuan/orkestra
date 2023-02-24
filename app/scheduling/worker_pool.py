@@ -27,7 +27,7 @@ class WorkerPool:
         wrapped_command = WrappedRunStepCommand(
             run_step_command=run_step_command,
             on_success=self.on_success_after_command_run,
-            on_failure=self.on_failure_after_command_run
+            on_failure=self.on_failure_after_command_run,
         )
         self.worker_queue.put(wrapped_command)
         self.process_queue()

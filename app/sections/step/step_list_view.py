@@ -1,9 +1,9 @@
 import logging
 
-from PyQt5.QtCore import Qt, QModelIndex, QVariant
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QMenu, QAction
-
+from PyQt6.QtCore import Qt, QModelIndex, QVariant
+from PyQt6.QtGui import QStandardItemModel, QStandardItem
+from PyQt6.QtWidgets import QMenu
+from PyQt6.QtGui import QAction
 from app.core.constants import STEP_LIST_OBJECT_ROLE, STEP_LIST_ID_ROLE
 from app.widgets.steps_list_widget import StepItemDelegate, CustomStepsListView
 from .step_list_controller import StepListController
@@ -30,7 +30,7 @@ class StepListView:
 
         # ui events
         self.lst_steps.selectionModel().currentChanged.connect(self.on_step_selected)
-        self.lst_steps.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.lst_steps.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.lst_steps.customContextMenuRequested.connect(self.on_display_context_menu)
         self.lst_steps.dropEventSignal.connect(self.on_drop_event)
 
@@ -81,7 +81,7 @@ class StepListView:
             return
 
         global_position = self.lst_steps.viewport().mapToGlobal(position)
-        self.menu.exec_(global_position)
+        self.menu.exec(global_position)
 
     def clear_steps(self):
         self.model.clear()

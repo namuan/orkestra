@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog
 
 
 def open_file_dialog(parent, dialog_title, dialog_location, file_filter=None):

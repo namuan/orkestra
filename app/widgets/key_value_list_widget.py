@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QListWidgetItem
+from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QListWidgetItem
 
 from app.core.dynamic_string import DynamicStringData
 from app.generated.KeyValueListWidget_ui import Ui_KeyValueListWidget

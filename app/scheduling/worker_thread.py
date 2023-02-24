@@ -1,6 +1,6 @@
 import logging
 
-from PyQt5.QtCore import QThread, pyqtSlot
+from PyQt6.QtCore import QThread, pyqtSlot
 
 
 class WorkerThread(QThread):
@@ -11,8 +11,11 @@ class WorkerThread(QThread):
 
     @pyqtSlot()
     def run(self):
-        logging.info("Running WorkerThread for RunStepCommand: {}".format(self.run_step_command))
+        logging.info(
+            "Running WorkerThread for RunStepCommand: {}".format(self.run_step_command)
+        )
         self.world.events.worker_started.emit(self.run_step_command)
         import time
+
         time.sleep(5)
         self.world.events.worker_stopped.emit()

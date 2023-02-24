@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 
 from app.core.dynamic_string import DynamicStringData
 from app.generated.KeyValueWidget_ui import Ui_KeyValueWidget

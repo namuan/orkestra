@@ -33,7 +33,9 @@ class HttpStepRequestController:
         self.current_step_id = step_id
 
     def trigger_run_http_step(self, run_step_command):
-        step_entity: StepEntity = self.world.step_store.get_step(run_step_command.step_id)
+        step_entity: StepEntity = self.world.step_store.get_step(
+            run_step_command.step_id
+        )
         step_data = self.parent.form_to_object()
         step_entity.step_data = step_data
         self.world.step_store.update_steps([step_entity])

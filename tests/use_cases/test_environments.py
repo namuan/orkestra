@@ -1,6 +1,6 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialogButtonBox
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QDialogButtonBox
 
 from . import get_main_window, close_application
 
@@ -25,22 +25,22 @@ def show_window(qtbot, clear_environments=True):
 
 def add_environments(qtbot, window, number):
     for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.MouseButton.LeftButton)
 
 
 def remove_environments(qtbot, window, number):
     for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.LeftButton)
+        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.MouseButton.LeftButton)
 
 
 def close_and_save_environments(qtbot, window):
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.StandardButton.Ok)
+    qtbot.mouseClick(ok_button, QtCore.Qt.MouseButton.LeftButton)
 
 
 def close_and_discard_changes(qtbot, window):
-    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Cancel)
-    qtbot.mouseClick(cancel_button, QtCore.Qt.LeftButton)
+    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.StandardButton.Cancel)
+    qtbot.mouseClick(cancel_button, QtCore.Qt.MouseButton.LeftButton)
 
 
 def test_adding_removing_env(qtbot):
@@ -163,7 +163,7 @@ def test_discard_envs_changes_on_esc(qtbot):
     add_environments(qtbot, window, NO_OF_ENVIRONMENTS)
 
     # then
-    qtbot.keyClick(window.environment_view.lst_environments, Qt.Key_Escape)
+    qtbot.keyClick(window.environment_view.lst_environments, Qt.Key.Key_Escape)
 
     # then
     environments = window.world.environment_store.get_environments()

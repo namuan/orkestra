@@ -1,4 +1,5 @@
-from PyQt5.QtCore import QItemSelectionModel
+from PyQt6 import QtCore
+from PyQt6.QtCore import QItemSelectionModel
 
 from . import get_main_window
 
@@ -18,12 +19,12 @@ def add_step(window, step_name):
 
 def deselect_current_step(window):
     selected_index = window.step_list_view.lst_steps.currentIndex()
-    window.step_list_view.lst_steps.selectionModel().select(selected_index, QItemSelectionModel.Deselect)
+    window.step_list_view.lst_steps.selectionModel().select(selected_index, QItemSelectionModel.SelectionFlag.Deselect)
 
 
 def select_step(window, position):
     selected_item = window.step_list_view.model.item(position)
-    window.step_list_view.lst_steps.selectionModel().select(selected_item.index(), QItemSelectionModel.Select)
+    window.step_list_view.lst_steps.selectionModel().select(selected_item.index(), QItemSelectionModel.SelectionFlag.Select)
 
 
 def test_add_new_steps(qtbot):

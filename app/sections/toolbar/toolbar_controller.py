@@ -1,17 +1,17 @@
 from functools import partial
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import (
     QToolBar,
     QWidget,
     QSizePolicy,
-    QAction,
     QMenu,
     QComboBox,
     QWidgetAction,
 )
-from PyQt5.QtWidgets import qApp
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication
 
 from app.core.constants import AVAILABLE_STEPS
 from app.settings.app_world import AppWorld
@@ -31,7 +31,7 @@ class ToolbarController:
 
     def init_items(self):
         self.toolbar.setObjectName("main_toolbar")
-        self.main_window.addToolBar(Qt.TopToolBarArea, self.toolbar)
+        self.main_window.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolbar)
         self.toolbar.setMovable(False)
 
         steps_menu = QMenu()
@@ -65,7 +65,7 @@ class ToolbarController:
 
         tool_bar_envs_list = QComboBox(self.main_window)
         tool_bar_envs_list.setSizePolicy(
-            QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
+            QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding
         )
         tool_bar_envs_list.setDuplicatesEnabled(False)
         tool_bar_envs_list.currentTextChanged.connect(
@@ -79,7 +79,7 @@ class ToolbarController:
         self.toolbar.addSeparator()
 
         spacer = QWidget(self.main_window)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         self.toolbar.addWidget(spacer)
 
@@ -98,4 +98,4 @@ class ToolbarController:
         self.toolbar.addAction(toolbar_quit_action)
 
     def trigger_quit_application(self):
-        qApp.quit()
+        QApplication.instance().quit()

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog
+from PyQt6.QtWidgets import QDialog
 
 from app.generated.HttpStepWidget_ui import Ui_HttpStepWidget
 from app.sections.httpstep.http_step_request_view import HttpStepRequestView

@@ -1,4 +1,4 @@
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 
 from app.sections.httpstep.http_step_view import HttpStepView
 from app.sections.sqlstep.sql_step_view import SqlStepView
@@ -19,7 +19,7 @@ def test_adding_http_widget_from_default_page(qtbot):
     window = show_window(qtbot)
 
     # when
-    qtbot.mouseClick(window.btn_new_http_request, QtCore.Qt.LeftButton)
+    qtbot.mouseClick(window.btn_new_http_request, QtCore.Qt.MouseButton.LeftButton)
 
     # then
     assert type(window.stackedWidget.currentWidget()) == HttpStepView, \
@@ -31,7 +31,7 @@ def test_adding_sql_widget_from_default_page(qtbot):
     window = show_window(qtbot)
 
     # when
-    qtbot.mouseClick(window.btn_new_sql_request, QtCore.Qt.LeftButton)
+    qtbot.mouseClick(window.btn_new_sql_request, QtCore.Qt.MouseButton.LeftButton)
 
     # then
     assert type(window.stackedWidget.currentWidget()) == SqlStepView, \

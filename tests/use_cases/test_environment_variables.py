@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialogButtonBox, QListWidgetItem
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QDialogButtonBox, QListWidgetItem
 
 from app.core.dynamic_string import DynamicStringData
 from app.core.faker_config import fake
@@ -28,22 +28,22 @@ def show_window(qtbot, clear_environments=True):
 
 def add_environments(qtbot, window, number):
     for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.LeftButton)
+        qtbot.mouseClick(window.environment_view.btn_add_environment, QtCore.Qt.MouseButton.LeftButton)
 
 
 def remove_environments(qtbot, window, number):
     for i in range(number):
-        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.LeftButton)
+        qtbot.mouseClick(window.environment_view.btn_remove_environment, QtCore.Qt.MouseButton.LeftButton)
 
 
 def close_and_save_environments(qtbot, window):
-    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Ok)
-    qtbot.mouseClick(ok_button, QtCore.Qt.LeftButton)
+    ok_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.StandardButton.Ok)
+    qtbot.mouseClick(ok_button, QtCore.Qt.MouseButton.LeftButton)
 
 
 def close_and_discard_changes(qtbot, window):
-    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.Cancel)
-    qtbot.mouseClick(cancel_button, QtCore.Qt.LeftButton)
+    cancel_button = window.environment_view.btn_dialog_close.button(QDialogButtonBox.StandardButton.Cancel)
+    qtbot.mouseClick(cancel_button, QtCore.Qt.MouseButton.LeftButton)
 
 
 def get_key_value_widget(window, position=0) -> KeyValueWidget:
@@ -111,7 +111,7 @@ def test_delete_environment_variables_row(qtbot):
 
     # when (delete key is pressed)
     key_value_widget = get_key_value_widget(window)
-    qtbot.mouseClick(key_value_widget.btn_remove_item, QtCore.Qt.LeftButton)
+    qtbot.mouseClick(key_value_widget.btn_remove_item, QtCore.Qt.MouseButton.LeftButton)
 
     # then number of items in list should be 1
     assert get_key_value_list(window).count() == 1

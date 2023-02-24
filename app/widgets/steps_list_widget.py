@@ -1,6 +1,7 @@
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6 import QtCore
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 from app.core.constants import STEP_LIST_OBJECT_ROLE
 from app.sections.step.step_store import StepEntity
@@ -14,11 +15,11 @@ def step_selected_rect():
 
 
 def step_selected_pen():
-    return Qt.white if is_dark() else Qt.black
+    return Qt.GlobalColor.white if is_dark() else Qt.GlobalColor.black
 
 
 def step_bounded_rect_pen():
-    return Qt.white
+    return Qt.GlobalColor.white
 
 
 def step_bounded_rect_fill():
@@ -51,11 +52,17 @@ class StepItemDelegate(QStyledItemDelegate):
         font.setBold(self.TITLE_FONT_BOLD)
         font_metrics: QFontMetrics = QFontMetrics(font)
         title_rect = font_metrics.boundingRect(
-            0, 0, bounding_rect.width(), 0, Qt.AlignLeft | Qt.AlignTop, step_title
+            0,
+            0,
+            bounding_rect.width(),
+            0,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop,
+            step_title,
         )
 
         size: QSize = QSize(
-            option.rect.width(), title_rect.height() + 10 * PADDING,
+            option.rect.width(),
+            title_rect.height() + 10 * PADDING,
         )
 
         return size
@@ -69,7 +76,7 @@ class StepItemDelegate(QStyledItemDelegate):
         bounding_rect = option.rect
         painter.save()
 
-        if option.state & QStyle.State_Selected:
+        if option.state & QStyle.StateFlag.State_Selected:
             painter.fillRect(bounding_rect, step_selected_rect())
             painter.setPen(step_selected_pen())
 
@@ -90,16 +97,20 @@ class StepItemDelegate(QStyledItemDelegate):
             bounding_rect.top() + PADDING,
             0,
             0,
-            Qt.AlignLeft | Qt.AlignTop,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop,
             padded_step_type,
         )
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         path = QPainterPath()
         path.addRoundedRect(QRectF(step_type_rect), 2, 2)
         painter.fillPath(path, step_bounded_rect_fill())
         painter.setFont(font)
         painter.setPen(step_bounded_rect_pen())
-        painter.drawText(step_type_rect, Qt.AlignLeft | Qt.AlignTop, padded_step_type)
+        painter.drawText(
+            step_type_rect,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop,
+            padded_step_type,
+        )
 
         # end draw type
 
@@ -109,7 +120,9 @@ class StepItemDelegate(QStyledItemDelegate):
         font.setBold(self.TITLE_FONT_BOLD)
         font_metrics: QFontMetrics = QFontMetrics(font)
         elided_title = font_metrics.elidedText(
-            step_title, Qt.ElideRight, bounding_rect.width() - 10 * PADDING
+            step_title,
+            Qt.TextElideMode.ElideRight,
+            bounding_rect.width() - 10 * PADDING,
         )
         # title
         title_rect = font_metrics.boundingRect(
@@ -117,13 +130,17 @@ class StepItemDelegate(QStyledItemDelegate):
             bounding_rect.top() + PADDING,
             bounding_rect.width() - 10 * PADDING,
             0,
-            Qt.AlignLeft | Qt.AlignTop,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop,
             elided_title,
         )
         painter.setFont(font)
         painter.setPen(step_selected_pen())
         painter.drawText(
-            title_rect, Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap, elided_title
+            title_rect,
+            Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+            | Qt.TextFlag.TextWordWrap,
+            elided_title,
         )
         # end draw title
 
@@ -133,21 +150,25 @@ class StepItemDelegate(QStyledItemDelegate):
         font.setBold(self.DESCRIPTION_FONT_BOLD)
         font_metrics: QFontMetrics = QFontMetrics(font)
         elided_description = font_metrics.elidedText(
-            step_description, Qt.ElideMiddle, bounding_rect.width() - 5 * PADDING
+            step_description,
+            Qt.TextElideMode.ElideMiddle,
+            bounding_rect.width() - 5 * PADDING,
         )
         description_rect = font_metrics.boundingRect(
             step_type_rect.left(),
             step_type_rect.bottom() + 2 * PADDING,
             bounding_rect.width() - PADDING,
             0,
-            Qt.AlignLeft | Qt.AlignTop,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop,
             elided_description,
         )
         painter.setFont(font)
         painter.setPen(step_selected_pen())
         painter.drawText(
             description_rect,
-            Qt.AlignLeft | Qt.AlignTop | Qt.TextWordWrap,
+            Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+            | Qt.TextFlag.TextWordWrap,
             elided_description,
         )
 
